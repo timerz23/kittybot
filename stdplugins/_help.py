@@ -24,12 +24,15 @@ async def _(event):
         s_help_string = borg._plugins[splugin_name].__doc__
     else:
         s_help_string = ""
+    _, check_sgnirts = check_data_base_heal_th()
     help_string = """@UniBorg
-Python {}
-Telethon {}
-UserBot Forked from https://github.com/expectocode/uniborg""".format(
+✅ Python {}
+✅ Telethon {}
+{} Database
+UserBot Forked from https://github.com/udf/uniborg""".format(
         sys.version,
-        __version__
+        __version__,
+        check_sgnirts
     )
     tgbotusername = Config.TG_BOT_USER_NAME_BF_HER  # pylint:disable=E0602
     if tgbotusername is not None:
@@ -81,3 +84,48 @@ async def _(event):
     else:
         plugin_syntax = "Enter valid **Plugin** name.\nDo `.exec ls stdplugins` or `.helpme` to get list of valid plugin names."
     await event.edit(plugin_syntax)
+
+
+""" h
+t
+t UniBorg Telegram UseRBot 
+p Copyright (C) 2020 @UniBorg
+s
+: This code is licensed under
+/
+/
+g the "you can't use this for anything - public or private,
+i unless you know the two prime factors to the number below" license
+t
+. 543935563961418342898620676239017231876605452284544942043082635399903451854594062955
+to
+g വിവരണം അടിച്ചുമാറ്റിക്കൊണ്ട് പോകുന്നവർ
+r ക്രെഡിറ്റ് വെച്ചാൽ സന്തോഷമേ ഉള്ളു..!
+and
+.
+xyz
+/
+uniborg
+/
+uniborg"""
+def check_data_base_heal_th():
+    # https://stackoverflow.com/a/41961968
+    is_database_working = False
+    output = "❌"
+
+    if not Config.DB_URI:
+        return is_database_working, output
+
+    from sql_helpers import SESSION
+
+    try:
+        # to check database we will execute raw query
+        SESSION.execute("SELECT 1")
+    except Exception as e:
+        output = f"❌ {str(e)}"
+        is_database_working = False
+    else:
+        output = "✅"
+        is_database_working = True
+
+    return is_database_working, output

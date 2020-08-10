@@ -106,14 +106,7 @@
     },
     "TZ": {
       "description": "set your default time zone for time related features to work correctly. Value should match the string here: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones",
-      "required": false
-    },
-    "VERY_STREAM_LOGIN": {
-      "description": "Get your API key from https://verystream.com",
-      "required": false
-    },
-    "VERY_STREAM_KEY": {
-      "description": "Get your API key from https://verystream.com",
+      "value": "Asia/Kolkata",
       "required": false
     },
     "G_DRIVE_CLIENT_ID": {
@@ -126,10 +119,6 @@
     },
     "TELE_GRAM_2FA_CODE": {
       "description": "Your Telegram 2FA code as a string",
-      "required": false
-    },
-    "MAX_FLOOD_IN_P_M_s": {
-      "description": "define the number of messages that should be considered as 'spam' in PMs",
       "required": false
     },
     "G_PHOTOS_CLIENT_ID": {
@@ -147,17 +136,12 @@
       "version": "12"
     }
   }],
-  "buildpacks": [{
-    "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
-  }, {
-    "url": "https://github.com/opendoor-labs/heroku-buildpack-p7zip"
-  }, {
-    "url": "https://github.com/heroku/heroku-buildpack-google-chrome"
-  }, {
-    "url": "https://github.com/heroku/heroku-buildpack-chromedriver"
-  }, {
-    "url": "https://github.com/amivin/aria2-heroku"
-    }, {
-    "url": "heroku/python"
-  }]
+  "buildpacks": [],
+  "stack": "container",
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "free"
+    }
+  }
 }

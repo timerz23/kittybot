@@ -13,6 +13,31 @@ Mozilla Public License for more details.
 
 ## installing
 
+#### The Easiest Way
+
+- Install Docker by following the [official docker docs](https://docs.docker.com/engine/install/debian/)
+
+- Start docker daemon [skip if already running]:
+```sh
+dockerd
+```
+- Build Docker image:
+```sh
+docker build . -t UniBorg
+```
+- Run the image:
+```sh
+docker run UniBorg
+```
+
+It is not recommended to use "sudo", while using Docker.
+GNU/Linux Permissions are highly customisable, and it is generally not required to have "ROOT" permission, ~~unless you know what you are doing~~.
+You can still install all the dependencies in your system [with ROOT permissions],
+but please be aware of the potential issues when doing so. The installed packages
+may conflict with the system package manager's installed packages, which can
+cause trouble down the road and errors when upgrading conflicting packages.
+**You have been warned.**
+
 #### The Legacy Way
 Simply clone the repository and run the main file:
 ```sh

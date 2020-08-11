@@ -73,14 +73,16 @@ if Config.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
                 text="{}\nCurrently Loaded Plugins: {}".format(
                     query, len(borg._plugins)),
                 buttons=buttons,
-                link_preview=False
+                link_preview=False,
+                parse_mode="html"
             )
         elif query.startswith("tb_btn"):
             result = builder.article(
                 "Button Parser © @UniBorg",
                 text=f"powered by @UniBorg",
                 buttons=[],
-                link_preview=True
+                link_preview=True,
+                parse_mode="html"
             )
         else:
             result = builder.article(
@@ -95,7 +97,8 @@ All instaructions to run @UniBorg in your PC has been explained in https://githu
                     [custom.Button.url(
                         "Source Code", "tg://some_unsupported_feature")]
                 ],
-                link_preview=False
+                link_preview=False,
+                parse_mode="html"
             )
         await event.answer([result] if result else None)
 

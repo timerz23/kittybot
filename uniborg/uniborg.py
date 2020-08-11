@@ -6,6 +6,7 @@ import importlib.util
 import logging
 import os
 from pathlib import Path
+import time
 
 from telethon import TelegramClient
 import telethon.utils
@@ -112,7 +113,7 @@ class Uniborg(TelegramClient):
         mod.Config = self.config
         if self.config.TG_BOT_USER_NAME_BF_HER is not None:
             mod.tgbot = self.tgbot
-
+        mod.BOT_START_TIME = time.time()
 
         spec.loader.exec_module(mod)
         self._plugins[shortname] = mod

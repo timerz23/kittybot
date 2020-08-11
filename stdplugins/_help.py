@@ -9,10 +9,15 @@
 ◆ `.syntax` <plugin name>
 """
 
-
+import shutil
 import sys
+import time
 from telethon import events, functions, __version__
-from uniborg.util import admin_cmd
+from uniborg.util import (
+    admin_cmd,
+    humanbytes,
+    time_formatter
+)
 
 
 @borg.on(admin_cmd(pattern="helpme ?(.*)", allow_sudo=True))  # pylint:disable=E0602
@@ -25,14 +30,30 @@ async def _(event):
     else:
         s_help_string = ""
     _, check_sgnirts = check_data_base_heal_th()
+
+    current_run_time = time_formatter((time.time() - BOT_START_TIME))
+    total, used, free = shutil.disk_usage("/")
+    total = humanbytes(total)
+    used = humanbytes(used)
+    free = humanbytes(free)
+
     help_string = """@UniBorg
-✅ Python {}
-✅ Telethon {}
-{} Database
+✅ <b>UpTime</b> <code>{}</code>
+✅ <b>Python</b> <code>{}</code>
+✅ <b>Telethon</b> <code>{}</code>
+{} <b>Database</b>
+<b>Total Disk Space</b>: <code>{}</code>
+<b>Used Disk Space</b>: <code>{}</code>
+<b>Free Disk Space</b>: <code>{}</code>
+
 UserBot Forked from https://github.com/udf/uniborg""".format(
+        current_run_time,
         sys.version,
         __version__,
-        check_sgnirts
+        check_sgnirts,
+        total,
+        used,
+        free
     )
     tgbotusername = Config.TG_BOT_USER_NAME_BF_HER  # pylint:disable=E0602
     if tgbotusername is not None:
@@ -47,7 +68,10 @@ UserBot Forked from https://github.com/udf/uniborg""".format(
         )
         await event.delete()
     else:
-        await event.reply(help_string + "\n\n" + s_help_string)
+        await event.reply(
+            help_string + "\n\n" + s_help_string,
+            parse_mode="html"
+        )
         await event.delete()
 
 

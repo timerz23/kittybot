@@ -28,5 +28,4 @@ async def _(event):
             event.chat_id,
             fwd_message
         )
-        await fwd_message.delete()
         await event.delete()

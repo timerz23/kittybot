@@ -5,31 +5,48 @@ Available Commands:
 .getthumbnail"""
 
 import os
-import subprocess
+import asyncio
+import time
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from PIL import Image
-from telethon import events
 from uniborg.util import admin_cmd
 
 
 thumb_image_path = Config.TMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
 
 
-def get_video_thumb(file, output=None, width=320):
-    output = file + ".jpg"
-    metadata = extractMetadata(createParser(file))
-    p = subprocess.Popen([
-        'ffmpeg', '-i', file,
-        '-ss', str(int((0, metadata.get('duration').seconds)[metadata.has('duration')] / 2)),
-        # '-filter:v', 'scale={}:-1'.format(width),
-        '-vframes', '1',
-        output,
-    ], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
-    p.communicate()
-    if not p.returncode and os.path.lexists(file):
-        os.remove(file)
-        return output
+async def get_video_thumb(video_file, output_directory=None, width=320):
+    # https://stackoverflow.com/a/13891070/4723940
+    out_put_file_name = output_directory + \
+        "/" + str(time.time()) + ".jpg"
+    metadata = extractMetadata(createParser(video_file))
+    ttl = 0
+    if metadata and metadata.has("duration"):
+        ttl = metadata.get("duration").seconds / 2
+    file_genertor_command = [
+        "ffmpeg",
+        "-ss",
+        str(ttl),
+        "-i",
+        video_file,
+        "-vframes",
+        "1",
+        out_put_file_name
+    ]
+    # width = "90"
+    process = await asyncio.create_subprocess_exec(
+        *file_genertor_command,
+        # stdout must a pipe to be accessible as process.stdout
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE,
+    )
+    # Wait for the subprocess to finish
+    stdout, stderr = await process.communicate()
+    e_response = stderr.decode().strip()
+    t_response = stdout.decode().strip()
+    if os.path.lexists(out_put_file_name):
+        return out_put_file_name
 
 
 @borg.on(admin_cmd(pattern="savethumbnail"))
@@ -40,13 +57,14 @@ async def _(event):
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if event.reply_to_msg_id:
-        downloaded_file_name = await borg.download_media(
+        downloaded_file_name = await event.client.download_media(
             await event.get_reply_message(),
             Config.TMP_DOWNLOAD_DIRECTORY
         )
         if downloaded_file_name.endswith(".mp4"):
-            downloaded_file_name = get_video_thumb(
-                downloaded_file_name
+            downloaded_file_name = await get_video_thumb(
+                downloaded_file_name,
+                Config.TMP_DOWNLOAD_DIRECTORY
             )
         metadata = extractMetadata(createParser(downloaded_file_name))
         height = 0
@@ -87,14 +105,14 @@ async def _(event):
     if event.reply_to_msg_id:
         r = await event.get_reply_message()
         try:
-            a = await borg.download_media(
-                r.media.document.thumbs[0],
+            a = await event.client.download_media(
+                r.media.document.thumbs[-1],
                 Config.TMP_DOWNLOAD_DIRECTORY
             )
         except Exception as e:
             await event.edit(str(e))
         try:
-            await borg.send_file(
+            await event.client.send_file(
                 event.chat_id,
                 a,
                 force_document=False,
@@ -107,7 +125,7 @@ async def _(event):
             await event.edit(str(e))
     elif os.path.exists(thumb_image_path):
         caption_str = "Currently Saved Thumbnail. Clear with `.clearthumbnail`"
-        await borg.send_file(
+        await event.client.send_file(
             event.chat_id,
             thumb_image_path,
             caption=caption_str,

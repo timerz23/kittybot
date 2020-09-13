@@ -148,6 +148,15 @@ class Config(object):
         "STICKERS_TGS_SHORT_NAME",
         "Uni_Borg_7351948_as"
     )
+    # for video trimming and screenshot plugins
+    LT_QOAN_NOE_FF_MPEG_CTD = os.environ.get(
+        "LT_QOAN_NOE_FF_MPEG_CTD",
+        None
+    )
+    LT_QOAN_NOE_FF_MPEG_URL = os.environ.get(
+        "LT_QOAN_NOE_FF_MPEG_URL",
+        None
+    )
 
 
 class Production(Config):

@@ -95,9 +95,6 @@ class Config(object):
     SUDO_USERS = list(set(
         int(x) for x in os.environ.get("SUDO_USERS", "").split()
     ))
-    # VeryStream only supports video formats
-    VERY_STREAM_LOGIN = os.environ.get("VERY_STREAM_LOGIN", None)
-    VERY_STREAM_KEY = os.environ.get("VERY_STREAM_KEY", None)
     # Google Drive ()
     G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID", None)
     G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET", None)
@@ -115,9 +112,6 @@ class Config(object):
         "GROUP_REG_SED_EX_BOT_S",
         r"(regex|moku|BananaButler_|rgx|l4mR)bot"
     )
-    # rapidleech plugins
-    OPEN_LOAD_LOGIN = os.environ.get("OPEN_LOAD_LOGIN", "0")
-    OPEN_LOAD_KEY = os.environ.get("OPEN_LOAD_KEY", "0")
     # Google Chrome Selenium Stuff
     # taken from https://github.com/jaskaranSM/UniBorg/blob/9072e3580cc6c98d46f30e41edbe73ffc9d850d3/sample_config.py#L104-L106
     GOOGLE_CHROME_DRIVER = os.environ.get("GOOGLE_CHROME_DRIVER", None)
@@ -127,12 +121,7 @@ class Config(object):
     #
     # JustWatch Country
     WATCH_COUNTRY = os.environ.get("WATCH_COUNTRY","IN")
-    # define "spam" in PMs
-    MAX_FLOOD_IN_P_M_s = int(os.environ.get("MAX_FLOOD_IN_P_M_s", 3))
     # leave this blank, should be automatically filled for Heroku.com users
-    PM_LOGGR_BOT_API_ID = os.environ.get("PM_LOGGR_BOT_API_ID", None)
-    if PM_LOGGR_BOT_API_ID:
-        PM_LOGGR_BOT_API_ID = int(PM_LOGGR_BOT_API_ID)
     # define the "types" that should be uplaoded as streamable
     TL_VID_STREAM_TYPES = ("MP4", "WEBM")
     TL_MUS_STREAM_TYPES = ("MP3", "WAV", "FLAC")

@@ -44,8 +44,6 @@ telegraph
 
 urbandict
 
-wikipedia
-
 youtube-dl
 
 google-api-python-client==1.7.11

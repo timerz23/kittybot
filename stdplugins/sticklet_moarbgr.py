@@ -5,18 +5,17 @@ import io
 import os
 import random
 import textwrap
-
 from PIL import Image, ImageDraw, ImageFont
 from telethon.tl.types import InputMessagesFilterDocument
 from uniborg.util import admin_cmd
 
 
 # RegEx by https://t.me/c/1220993104/500653 ( @SnapDragon7410 )
-@borg.on(admin_cmd(pattern="srgb ?(?:(.*?) \| )?(.*)"))
+@borg.on(admin_cmd(pattern=r"srgb ?(?:(.*?) \| )?(.*)"))
 async def sticklet(event):
-    R = random.randint(0,256)
-    G = random.randint(0,256)
-    B = random.randint(0,256)
+    R = random.randint(0, 256)
+    G = random.randint(0, 256)
+    B = random.randint(0, 256)
 
     reply_message = event.message
     # get the input text
@@ -57,7 +56,12 @@ async def sticklet(event):
         font = ImageFont.truetype(FONT_FILE, size=fontsize)
 
     width, height = draw.multiline_textsize(sticktext, font=font)
-    draw.multiline_text(((512-width)/2,(512-height)/2), sticktext, font=font, fill=(R, G, B))
+    draw.multiline_text(
+        ((512 - width) / 2, (512 - height) / 2),
+        sticktext,
+        font=font,
+        fill=(R, G, B)
+    )
 
     image_stream = io.BytesIO()
     image_stream.name = "@UniBorg.webp"

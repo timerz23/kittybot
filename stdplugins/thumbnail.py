@@ -105,12 +105,10 @@ async def _(event):
     if event.reply_to_msg_id:
         r = await event.get_reply_message()
         try:
-            a = await event.client.download_media(
-                r.media.document.thumbs[-1],
-                Config.TMP_DOWNLOAD_DIRECTORY
-            )
+            a = await r.download_media(thumb=-1)
         except Exception as e:
             await event.edit(str(e))
+            return
         try:
             await event.client.send_file(
                 event.chat_id,

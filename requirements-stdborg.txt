@@ -13,7 +13,6 @@ deezloader
 emoji
 
 googletrans
-google_images_download==2.8.0
 gtts
 
 hachoir

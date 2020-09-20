@@ -4,7 +4,7 @@
 import os
 
 
-class Config(object):
+class Config:
     LOGGER = True
     # Get this value from my.telegram.org! Please do not steal
     APP_ID = int(os.environ.get("APP_ID", 6))

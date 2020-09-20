@@ -123,6 +123,10 @@ async def handler(event):
     await event.reply("hey")
 ```
 
+## disclaimer
+
+⚠️ This fork uses "requests" module in various places, instead of the async alternative. ⚠️
+
 
 ## learning
 

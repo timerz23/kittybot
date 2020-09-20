@@ -55,11 +55,17 @@ UserBot Forked from https://github.com/udf/uniborg""".format(
         used,
         free
     )
+    borg._iiqsixfourstore[str(event.chat_id)] = {}
+    borg._iiqsixfourstore[
+        str(event.chat_id)
+    ][
+        str(event.id)
+    ] = help_string + "\n\n" + s_help_string
     tgbotusername = Config.TG_BOT_USER_NAME_BF_HER  # pylint:disable=E0602
     if tgbotusername is not None:
         results = await borg.inline_query(  # pylint:disable=E0602
             tgbotusername,
-            help_string + "\n\n" + s_help_string
+            f"@UniBorg {event.chat_id} {event.id}"
         )
         await results[0].click(
             event.chat_id,

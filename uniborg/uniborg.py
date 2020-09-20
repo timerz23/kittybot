@@ -29,6 +29,7 @@ class Uniborg(TelegramClient):
         self._name = "LoggedIn"
         self._logger = logging.getLogger("UniBorg")
         self._plugins = {}
+        self._iiqsixfourstore = {}
         self.n_plugin_path = n_plugin_path
         self.db_plugin_path = db_plugin_path
         self.config = api_config

@@ -7,7 +7,12 @@ import time
 from datetime import datetime
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
-from uniborg.util import admin_cmd, progress
+from uniborg.util import (
+    admin_cmd,
+    progress,
+    take_screen_shot,
+    cult_small_video
+)
 
 
 @borg.on(admin_cmd(pattern="ffmpegtrim"))
@@ -85,76 +90,6 @@ async def ff_mpeg_trim_cmd(event):
     end = datetime.now()
     ms = (end - start).seconds
     await event.edit(f"Completed Process in {ms} seconds")
-
-
-async def take_screen_shot(video_file, output_directory, ttl):
-    # https://stackoverflow.com/a/13891070/4723940
-    out_put_file_name = output_directory + \
-        "/" + str(time.time()) + ".jpg"
-    file_genertor_command = [
-        "ffmpeg",
-        "-ss",
-        str(ttl),
-        "-i",
-        video_file,
-        "-vframes",
-        "1",
-        out_put_file_name
-    ]
-    # width = "90"
-    process = await asyncio.create_subprocess_exec(
-        *file_genertor_command,
-        # stdout must a pipe to be accessible as process.stdout
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
-    )
-    # Wait for the subprocess to finish
-    stdout, stderr = await process.communicate()
-    e_response = stderr.decode().strip()
-    t_response = stdout.decode().strip()
-    if os.path.lexists(out_put_file_name):
-        return out_put_file_name
-    else:
-        logger.info(e_response)
-        logger.info(t_response)
-        return None
-
-# https://github.com/Nekmo/telegram-upload/blob/master/telegram_upload/video.py#L26
-
-async def cult_small_video(video_file, output_directory, start_time, end_time):
-    # https://stackoverflow.com/a/13891070/4723940
-    out_put_file_name = output_directory + \
-        "/" + str(round(time.time())) + ".mp4"
-    file_genertor_command = [
-        "ffmpeg",
-        "-i",
-        video_file,
-        "-ss",
-        start_time,
-        "-to",
-        end_time,
-        "-async",
-        "1",
-        "-strict",
-        "-2",
-        out_put_file_name
-    ]
-    process = await asyncio.create_subprocess_exec(
-        *file_genertor_command,
-        # stdout must a pipe to be accessible as process.stdout
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
-    )
-    # Wait for the subprocess to finish
-    stdout, stderr = await process.communicate()
-    e_response = stderr.decode().strip()
-    t_response = stdout.decode().strip()
-    if os.path.lexists(out_put_file_name):
-        return out_put_file_name
-    else:
-        logger.info(e_response)
-        logger.info(t_response)
-        return None
 
 
 async def bleck_megic(evt_message) -> str:

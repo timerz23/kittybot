@@ -5,10 +5,18 @@ Available Commands:
 Available Options: d, y, m, w, o, q, r """
 from telethon import events
 from datetime import datetime, timedelta
-from telethon.tl.types import UserStatusEmpty, UserStatusLastMonth, UserStatusLastWeek, UserStatusOffline, UserStatusOnline, UserStatusRecently, ChannelParticipantsKicked, ChatBannedRights
+from telethon.tl.types import (
+    UserStatusEmpty,
+    UserStatusLastMonth,
+    UserStatusLastWeek,
+    UserStatusOffline,
+    UserStatusOnline,
+    UserStatusRecently,
+    ChannelParticipantsKicked,
+    ChatBannedRights
+)
 from telethon.tl import functions, types
-from time import sleep
-import asyncio
+from asyncio import sleep
 from uniborg.util import admin_cmd
 
 
@@ -193,7 +201,7 @@ UserStatusRecently: {}
 Bots: {}
 None: {}"""
         await event.edit(required_string.format(c, p, d, y, m, w, o, q, r, b, n))
-        await asyncio.sleep(5)
+        await sleep(5)
     await event.edit("""Total: {} users
 Deleted Accounts: {}
 UserStatusEmpty: {}

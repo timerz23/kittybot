@@ -5,10 +5,12 @@ Available Commands:
 
 import asyncio
 import os
-import subprocess
 from datetime import datetime
 from gtts import gTTS
-from uniborg.util import admin_cmd
+from uniborg.util import (
+    admin_cmd,
+    run_command
+)
 
 
 @borg.on(admin_cmd(pattern="tts (.*)"))
@@ -36,22 +38,22 @@ async def _(event):
         tts.save(required_file_name)
         command_to_execute = [
             "ffmpeg",
+            "-hide_banner",
             "-i",
-             required_file_name,
-             "-map",
-             "0:a",
-             "-codec:a",
-             "libopus",
-             "-b:a",
-             "100k",
-             "-vbr",
-             "on",
-             required_file_name + ".opus"
+            required_file_name,
+            "-map",
+            "0:a",
+            "-codec:a",
+            "libopus",
+            "-b:a",
+            "100k",
+            "-vbr",
+            "on",
+            required_file_name + ".opus"
         ]
-        try:
-            t_response = subprocess.check_output(command_to_execute, stderr=subprocess.STDOUT)
-        except (subprocess.CalledProcessError, NameError, FileNotFoundError) as exc:
-            await event.edit(str(exc))
+        await run_command(command_to_execute)
+        if not os.path.exists(required_file_name + ".opus"):
+            await event.edit("failed to convert")
             # continue sending required_file_name
         else:
             os.remove(required_file_name)

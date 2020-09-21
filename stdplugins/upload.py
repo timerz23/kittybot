@@ -9,7 +9,6 @@ Available Commands:
 
 import asyncio
 import os
-import subprocess
 import time
 from datetime import datetime
 from hachoir.metadata import extractMetadata
@@ -17,7 +16,11 @@ from hachoir.parser import createParser
 from telethon import events
 from telethon.tl.types import DocumentAttributeVideo
 from telethon.tl.types import DocumentAttributeAudio
-from uniborg.util import progress, admin_cmd
+from uniborg.util import (
+    progress,
+    admin_cmd,
+    take_screen_shot
+)
 
 
 thumb_image_path = Config.TMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
@@ -176,19 +179,6 @@ async def _(event):
         await mone.edit("404: File Not Found")
 
 
-def get_video_thumb(file, output=None, width=90):
-    metadata = extractMetadata(createParser(file))
-    p = subprocess.Popen([
-        'ffmpeg', '-i', file,
-        '-ss', str(int((0, metadata.get('duration').seconds)[metadata.has('duration')] / 2)),
-        '-filter:v', 'scale={}:-1'.format(width),
-        '-vframes', '1',
-        output,
-    ], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
-    if not p.returncode and os.path.lexists(file):
-        return output
-
-
 @borg.on(admin_cmd(pattern="uploadasstream (.*)", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
@@ -205,23 +195,28 @@ async def _(event):
                 "**Supported Formats**: MKV, MP4, MP3, FLAC"
             )
             return False
-        if os.path.exists(thumb_image_path):
-            thumb = thumb_image_path
-        else:
-            thumb = get_video_thumb(file_name, thumb_image_path)
         start = datetime.now()
         metadata = extractMetadata(createParser(file_name))
         duration = 0
         width = 0
         height = 0
-        if metadata.has("duration"):
-            duration = metadata.get('duration').seconds
+        if metadata:
+            if metadata.has("duration"):
+                duration = metadata.get('duration').seconds
+            if os.path.exists(thumb_image_path):
+                metadata = extractMetadata(createParser(thumb_image_path))
+                if metadata.has("width"):
+                    width = metadata.get("width")
+                if metadata.has("height"):
+                    height = metadata.get("height")
         if os.path.exists(thumb_image_path):
-            metadata = extractMetadata(createParser(thumb_image_path))
-            if metadata.has("width"):
-                width = metadata.get("width")
-            if metadata.has("height"):
-                height = metadata.get("height")
+            thumb = thumb_image_path
+        else:
+            thumb = await take_screen_shot(
+                file_name,
+                Config.TMP_DOWNLOAD_DIRECTORY,
+                duration // 2
+            )
         # Telegram only works with MP4 files
         # this is good, since with MKV files sent as streamable Telegram responds,
         # Bad Request: VIDEO_CONTENT_TYPE_INVALID

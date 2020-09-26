@@ -31,9 +31,6 @@ from telethon.utils import get_display_name
     )
 ))
 async def all_messages_catcher(event):
-    # the bot might not have the required access_hash to mention the appropriate PM
-    await event.forward_to(Config.TG_BOT_USER_NAME_BF_HER)
-
     # construct message
     # the message format is stolen from @MasterTagAlertBot
     ammoca_message = ""
@@ -45,6 +42,13 @@ async def all_messages_catcher(event):
         who_.support
     ):
         return
+
+    # the bot might not have the required access_hash to mention the appropriate PM
+    await (
+        await event.forward_to(
+            Config.TG_BOT_USER_NAME_BF_HER
+        )
+    ).delete()
 
     who_m = f"[{get_display_name(who_)}](tg://user?id={who_.id})"
 

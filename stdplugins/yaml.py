@@ -88,7 +88,7 @@ def yaml_format(obj, indent=0, max_str_len=256, max_byte_len=64):
     return ''.join(result)
 
 
-@borg.on(admin_cmd(pattern="json"))
+@borg.on(admin_cmd(pattern="yaml"))
 async def _(event):
     if event.fwd_from:
         return
@@ -96,17 +96,18 @@ async def _(event):
     reply_to_id = None
     if event.reply_to_msg_id:
         event = await event.get_reply_message()
+    # await event.delete()
     the_real_message = yaml_format(event)
     if len(the_real_message) > Config.MAX_MESSAGE_SIZE_LIMIT:
         with io.BytesIO(str.encode(the_real_message)) as out_file:
-            out_file.name = "json.html"
+            out_file.name = "yaml.html"
             await event.reply(
                 file=out_file,
                 force_document=True,
             )
-            await event.delete()
+            # await event.delete()
     else:
-        await event.edit(
+        await event.reply(
             the_real_message,
             parse_mode=parse_pre
         )

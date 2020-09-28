@@ -122,4 +122,7 @@ async def bleck_megick(event, config_jbo):
                 "and restart application."
             )
     else:
-        await event.reply("un authorized -_- user(s)")
+        await event.reply(
+            "un authorized -_- user(s) "
+            "please get your own: https://t.me/UniBorg/108"
+        )

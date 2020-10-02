@@ -20,12 +20,6 @@ RUN apt -qq install -y --no-install-recommends \
     unzip \
     wget
 
-# add required files to sources.list
-RUN wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | apt-key add - && \
-    wget -qO - https://ftp-master.debian.org/keys/archive-key-10.asc | apt-key add -
-RUN sh -c 'echo "deb https://mkvtoolnix.download/debian/ buster main" >> /etc/apt/sources.list.d/bunkus.org.list' && \
-    sh -c 'echo deb http://deb.debian.org/debian buster main contrib non-free | tee -a /etc/apt/sources.list'
-
 # to resynchronize the package index files from their sources.
 RUN apt -qq update
 
@@ -58,14 +52,12 @@ RUN apt -qq install -y --no-install-recommends \
     # this package is required to fetch "contents" via "TLS"
     apt-transport-https \
     # install coreutils
-    coreutils aria2 jq pv \
+    coreutils jq pv \
     # install encoding tools
-    ffmpeg mediainfo rclone \
-    # install extraction tools
-    mkvtoolnix \
+    ffmpeg mediainfo \
     p7zip rar unrar zip \
     # miscellaneous helpers
-    megatools mediainfo rclone && \
+    megatools && \
     # clean up the container "layer", after we are done
     rm -rf /var/lib/apt/lists /var/cache/apt/archives /tmp
 

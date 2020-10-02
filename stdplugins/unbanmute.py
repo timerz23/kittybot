@@ -74,4 +74,4 @@ async def _(event):
     except (Exception) as exc:
         await event.edit(str(exc))
     else:
-        await event.edit(f"{input_cmd}ed Successfully")
+        await event.edit(f"__{input_cmd}__ Successfully")

@@ -14,9 +14,9 @@ async def _(event):
         from_user = None
         input_str = event.pattern_match.group(1)
         if input_str:
-            from_user = await borg.get_entity(input_str)
+            from_user = await event.client.get_entity(input_str)
             logger.info(from_user)
-        async for message in borg.iter_messages(
+        async for message in event.client.iter_messages(
             event.chat_id,
             min_id=event.reply_to_msg_id,
             from_user=from_user
@@ -24,10 +24,10 @@ async def _(event):
             i += 1
             msgs.append(message)
             if len(msgs) == 100:
-                await borg.delete_messages(event.chat_id, msgs, revoke=True)
+                await event.client.delete_messages(event.chat_id, msgs, revoke=True)
                 msgs = []
         if len(msgs) <= 100:
-            await borg.delete_messages(event.chat_id, msgs, revoke=True)
+            await event.client.delete_messages(event.chat_id, msgs, revoke=True)
             msgs = []
             await event.delete()
         else:

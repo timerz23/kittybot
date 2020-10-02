@@ -1,6 +1,6 @@
-# This Source Code Form is subject to the terms of the GNU
-# General Public License, v.3.0. If a copy of the GPL was not distributed with this
-# file, You can obtain one at https://www.gnu.org/licenses/gpl-3.0.en.html
+# UniBorg Telegram UseRBot 
+# Copyright (C) 2020 @UniBorg
+
 """Uploads Files to Telegram
 Available Commands:
 .upload <Path To File>
@@ -31,8 +31,9 @@ def get_lst_of_files(input_directory, output_lst):
     for file_name in filesinfolder:
         current_file_name = os.path.join(input_directory, file_name)
         if os.path.isdir(current_file_name):
-            return get_lst_of_files(current_file_name, output_lst)
-        output_lst.append(current_file_name)
+            output_lst = get_lst_of_files(current_file_name, output_lst)
+        if os.path.isfile(current_file_name):
+            output_lst.append(current_file_name)
     return output_lst
 
 

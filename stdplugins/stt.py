@@ -1,13 +1,11 @@
 """Speech to Text
 Syntax: .stt <Language Code> as reply to a speech message"""
-from telethon import events
 import requests
 import os
 from datetime import datetime
-from uniborg.util import admin_cmd
 
 
-@borg.on(admin_cmd(pattern="stt (.*)"))
+@borg.on(utils.admin_cmd(pattern="stt (.*)"))
 async def _(event):
     if event.fwd_from:
         return

@@ -15,10 +15,9 @@ import json
 import re
 from bs4 import BeautifulSoup
 from telethon.utils import get_inner_text
-from uniborg.util import admin_cmd
 
 
-@borg.on(admin_cmd(pattern="rl"))
+@borg.on(utils.admin_cmd(pattern="rl"))
 async def _(event):
     if event.fwd_from:
         return

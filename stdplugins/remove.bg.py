@@ -20,11 +20,9 @@ from datetime import datetime
 import io
 import os
 import requests
-from telethon import events
-from uniborg.util import progress, admin_cmd
 
 
-@borg.on(admin_cmd(pattern="remove\.bg ?(.*)"))
+@borg.on(utils.admin_cmd(pattern="remove\.bg ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return

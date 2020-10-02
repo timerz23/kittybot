@@ -12,10 +12,9 @@ from datetime import datetime
 from pySmartDL import SmartDL
 from telethon import events
 from telethon.tl.types import DocumentAttributeVideo
-from uniborg.util import admin_cmd, humanbytes, progress, time_formatter
 
 
-@borg.on(admin_cmd(pattern="download ?(.*)", allow_sudo=True))
+@borg.on(utils.admin_cmd(pattern="download ?(.*)", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -28,11 +27,11 @@ async def _(event):
         reply_message = await event.get_reply_message()
         try:
             c_time = time.time()
-            downloaded_file_name = await borg.download_media(
+            downloaded_file_name = await event.client.download_media(
                 reply_message,
                 Config.TMP_DOWNLOAD_DIRECTORY,
                 progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                    progress(d, t, mone, c_time, "trying to download")
+                    utils.progress(d, t, mone, c_time, "trying to download")
                 )
             )
         except Exception as e:  # pylint:disable=C0103,W0703
@@ -74,7 +73,7 @@ async def _(event):
                                   f"File Name: {file_name}\n" \
                                   f"Speed: {speed}"\
                                   f"{progress_str}\n"\
-                                  f"{humanbytes(downloaded)} of {humanbytes(total_length)}\n"\
+                                  f"{utils.humanbytes(downloaded)} of {utils.humanbytes(total_length)}\n"\
                                   f"ETA: {estimated_total_time}"
                 if round(diff % 10.00) == 0 and current_message != display_message:
                     await mone.edit(current_message)

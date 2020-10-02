@@ -3,9 +3,7 @@
 # All rights reserved.
 
 """Syntax: .watch Movie/TV Show"""
-from telethon import events
 import requests
-from uniborg.util import admin_cmd
 from justwatch import JustWatch, justwatchapi
 
 
@@ -71,7 +69,7 @@ def get_provider(url):
     return url
 
 
-@borg.on(admin_cmd(pattern="watch (.*)"))
+@borg.on(utils.admin_cmd(pattern="watch (.*)"))
 async def _(event):
     if event.fwd_from:
         return

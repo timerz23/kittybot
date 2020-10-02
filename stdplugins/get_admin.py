@@ -1,11 +1,11 @@
 """Get Administrators of any Chat*
 Syntax: .get_admin"""
-from telethon import events
-from telethon.tl.types import ChannelParticipantsAdmins, ChannelParticipantAdmin, ChannelParticipantCreator
-from uniborg.util import admin_cmd
+from telethon.tl.types import (
+    ChannelParticipantsAdmins, ChannelParticipantAdmin, ChannelParticipantCreator
+)
 
 
-@borg.on(admin_cmd(pattern="get_ad?(m)in ?(.*)"))
+@borg.on(utils.admin_cmd(pattern="get_ad(m)?in ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -31,13 +31,13 @@ async def _(event):
     else:
         chat = to_write_chat
     try:
-        async for x in borg.iter_participants(chat, filter=ChannelParticipantsAdmins):
+        async for x in event.client.iter_participants(chat, filter=ChannelParticipantsAdmins):
             if not x.deleted and isinstance(
                 x.participant, ChannelParticipantCreator
             ):
                 mentions += "\n 👑 [{}](tg://user?id={}) `{}`".format(x.first_name, x.id, x.id)
         mentions += "\n"
-        async for x in borg.iter_participants(chat, filter=ChannelParticipantsAdmins):
+        async for x in event.client.iter_participants(chat, filter=ChannelParticipantsAdmins):
             if x.deleted:
                 mentions += "\n `{}`".format(x.id)
             else:

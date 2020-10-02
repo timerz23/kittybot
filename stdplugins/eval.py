@@ -10,10 +10,9 @@ import traceback
 import asyncio
 import sys
 import io
-from uniborg.util import admin_cmd, parse_pre, yaml_format
 
 
-@borg.on(admin_cmd(pattern="eval"))
+@borg.on(utils.admin_cmd(pattern="eval"))
 async def _(event):
     if event.fwd_from or event.via_bot_id:
         return
@@ -68,7 +67,7 @@ async def _(event):
 
 
 async def aexec(code, event):
-    p = lambda _x: print(yaml_format(_x))
+    p = lambda _x: print(utils.yaml_format(_x))
     reply = await event.get_reply_message()
     exec(
         f'async def __aexec(message, reply, client, p): ' +

@@ -6,10 +6,9 @@ import asyncio
 import json
 import re
 from telethon import events, custom
-from uniborg.util import admin_cmd, humanbytes
 
 
-@borg.on(admin_cmd(  # pylint:disable=E0602
+@borg.on(utils.admin_cmd(  # pylint:disable=E0602
     pattern="ib (.[^ ]*) (.*)"
 ))
 async def _(event):
@@ -36,7 +35,7 @@ async def _(event):
             `{}`".format(bot_username, search_query, str(e)))
 
 
-@borg.on(admin_cmd(  # pylint:disable=E0602
+@borg.on(utils.admin_cmd(  # pylint:disable=E0602
     pattern="icb (.[^ ]*) (.[^ ]*) (.*)"
 ))
 async def _(event):
@@ -145,8 +144,12 @@ if Config.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
     ))
     async def on_plug_in_callback_query_handler(event):
         plugin_name = event.data_match.group(1).decode("UTF-8")
-        help_string = borg._plugins[plugin_name].__doc__[
-            0:125]  # pylint:disable=E0602
+        try:
+            help_string = borg._plugins[plugin_name].__doc__[
+                0:125
+            ]  # pylint:disable=E0602
+        except (ValueError, TypeError):
+            help_string = None
         reply_pop_up_alert = help_string if help_string is not None else \
             "No DOCSTRING has been setup for {} plugin".format(plugin_name)
         reply_pop_up_alert += "\n\n Use .unload {} to remove this plugin\n\

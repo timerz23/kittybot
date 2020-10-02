@@ -7,11 +7,10 @@ import random
 import textwrap
 from PIL import Image, ImageDraw, ImageFont
 from telethon.tl.types import InputMessagesFilterDocument
-from uniborg.util import admin_cmd
 
 
 # RegEx by https://t.me/c/1220993104/500653 ( @SnapDragon7410 )
-@borg.on(admin_cmd(pattern=r"srgb ?(?:(.*?) \| )?(.*)"))
+@borg.on(utils.admin_cmd(pattern=r"srgb ?(?:(.*?) \| )?(.*)"))
 async def sticklet(event):
     R = random.randint(0, 256)
     G = random.randint(0, 256)

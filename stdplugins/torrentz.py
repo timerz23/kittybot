@@ -2,10 +2,9 @@ import cfscrape  # https://github.com/Anorov/cloudflare-scrape
 import requests
 from datetime import datetime
 from bs4 import BeautifulSoup
-from uniborg.util import admin_cmd, humanbytes
 
 
-@borg.on(admin_cmd(  # pylint:disable=E0602
+@borg.on(utils.admin_cmd(  # pylint:disable=E0602
     pattern="torrentz (torrentz2\.eu|idop\.se) (.*)"
 ))
 async def _(event):
@@ -60,7 +59,7 @@ def search_idop_se(search_query):
             "title": title,
             "hash": hash,
             "age": age,
-            "size": humanbytes(size),
+            "size": utils.humanbytes(size),
             "seeds": seeds,
             "peers": "NA"
         })

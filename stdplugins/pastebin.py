@@ -1,18 +1,16 @@
 """IX.IO pastebin like site
 Syntax: .paste"""
-from telethon import events
 import asyncio
 from datetime import datetime
 import os
 import requests
-from uniborg.util import admin_cmd
 
 
 def progress(current, total):
     logger.info("Downloaded {} of {}\nCompleted {}".format(current, total, (current / total) * 100))
 
 
-@borg.on(admin_cmd(pattern="paste ?(.*)"))
+@borg.on(utils.admin_cmd(pattern="paste ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -28,7 +26,7 @@ async def _(event):
         if previous_message.media:
             downloaded_file_name = await previous_message.download_media(
                 Config.TMP_DOWNLOAD_DIRECTORY,
-                progress_callback=progress
+                progress_callback=utils.progress
             )
             m_list = None
             with open(downloaded_file_name, "rb") as fd:

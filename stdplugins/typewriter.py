@@ -2,10 +2,9 @@
 # -*- coding: utf-8 -*-
 # (c) Shrimadhav U K
 import asyncio
-from uniborg.util import admin_cmd
 
 
-@borg.on(admin_cmd(pattern="typewriter (.*)"))
+@borg.on(utils.admin_cmd(pattern="typewriter (.*)"))
 async def _(event):
     if event.fwd_from:
         return

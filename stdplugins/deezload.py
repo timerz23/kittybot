@@ -30,14 +30,12 @@ import deezloader
 import os
 import shutil
 import time
-
-from uniborg.util import admin_cmd
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 # from PIL import Image
 from telethon.tl.types import DocumentAttributeAudio
 
-@borg.on(admin_cmd(pattern="deezload (.+?|) --(FLAC|MP3\_320|MP3\_256|MP3\_128)"))
+@borg.on(utils.admin_cmd(pattern="deezload (.+?|) --(FLAC|MP3\_320|MP3\_256|MP3\_128)"))
 async def _(event):
     """DeezLoader by @An0nimia
     Ported for UniBorg by @SpEcHlDe"""

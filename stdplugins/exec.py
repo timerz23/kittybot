@@ -3,16 +3,13 @@ Syntax: .exec Code"""
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
-from telethon import events
-import subprocess
 from telethon.errors import MessageEmptyError, MessageTooLongError, MessageNotModifiedError
 import io
 import asyncio
 import time
-from uniborg.util import admin_cmd
 
 
-@borg.on(admin_cmd(pattern="exec ?(.*)"))
+@borg.on(utils.admin_cmd(pattern="exec ?(.*)"))
 async def _(event):
     if event.fwd_from or event.via_bot_id:
         return
@@ -40,7 +37,7 @@ async def _(event):
     if len(OUTPUT) > Config.MAX_MESSAGE_SIZE_LIMIT:
         with io.BytesIO(str.encode(OUTPUT)) as out_file:
             out_file.name = "exec.text"
-            await borg.send_file(
+            await event.client.send_file(
                 event.chat_id,
                 out_file,
                 force_document=True,
@@ -49,4 +46,5 @@ async def _(event):
                 reply_to=reply_to_id
             )
             await event.delete()
-    await event.edit(OUTPUT)
+    else:
+        await event.edit(OUTPUT)

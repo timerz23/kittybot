@@ -27,9 +27,10 @@ async def _(event):
     redirected_output = sys.stdout = io.StringIO()
     redirected_error = sys.stderr = io.StringIO()
     stdout, stderr, exc = None, None, None
+    _sr = None
 
     try:
-        await aexec(cmd, event)
+        _sr = await aexec(cmd, event)
     except Exception:
         exc = traceback.format_exc()
 
@@ -38,15 +39,13 @@ async def _(event):
     sys.stdout = old_stdout
     sys.stderr = old_stderr
 
-    evaluation = ""
+    evaluation = _sr
     if exc:
         evaluation = exc
     elif stderr:
         evaluation = stderr
     elif stdout:
         evaluation = stdout
-    else:
-        evaluation = "Success"
 
     final_output = "**EVAL**: `{}` \n\n **OUTPUT**: \n`{}` \n".format(cmd, evaluation)
 
@@ -69,8 +68,14 @@ async def _(event):
 async def aexec(code, event):
     p = lambda _x: print(slitu.yaml_format(_x))
     reply = await event.get_reply_message()
+    code_parts = code.split("\n")
+    code_parts_m = code_parts[:-1]
+    code_parts_n = code_parts[-1]
+    edoc = ""
+    for one_code in code_parts_m:
+        edoc += f"\n {one_code}"
+    edoc += f"\n return {code_parts_n}"
     exec(
-        f'async def __aexec(message, reply, client, p): ' +
-        ''.join(f'\n {l}' for l in code.split('\n'))
+        f"async def __aexec(message, reply, client, p): {edoc}"
     )
     return await locals()['__aexec'](event, reply, event.client, p)

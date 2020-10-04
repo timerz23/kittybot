@@ -5,7 +5,7 @@ from telethon.tl.types import (
 )
 
 
-@borg.on(utils.admin_cmd(pattern="get_ad(m)?in ?(.*)"))
+@borg.on(slitu.admin_cmd(pattern="get_ad(m)?in ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return

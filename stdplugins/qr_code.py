@@ -13,7 +13,7 @@ def progress(current, total):
     logger.info("Downloaded {} of {}\nCompleted {}".format(current, total, (current / total) * 100))
 
 
-@borg.on(utils.admin_cmd(pattern="getqr"))
+@borg.on(slitu.admin_cmd(pattern="getqr"))
 async def _(event):
     if event.fwd_from:
         return
@@ -32,7 +32,7 @@ async def _(event):
         "-F", "f=@" + downloaded_file_name + "",
         "https://zxing.org/w/decode"
     ]
-    t_response, e_response = await utils.run_command(command_to_exec)
+    t_response, e_response = await slitu.run_command(command_to_exec)
     os.remove(downloaded_file_name)
     if not t_response:
         logger.info(e_response)
@@ -48,7 +48,7 @@ async def _(event):
     await event.edit(qr_contents)
 
 
-@borg.on(utils.admin_cmd(pattern="makeqr ?(.*)"))
+@borg.on(slitu.admin_cmd(pattern="makeqr ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return

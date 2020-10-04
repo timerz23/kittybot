@@ -6,7 +6,7 @@ from datetime import datetime
 import requests
 
 
-@borg.on(utils.admin_cmd(pattern="currency (.*)"))
+@borg.on(slitu.admin_cmd(pattern="currency (.*)"))
 async def _(event):
     if event.fwd_from:
         return

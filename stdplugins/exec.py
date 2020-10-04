@@ -9,7 +9,7 @@ import asyncio
 import time
 
 
-@borg.on(utils.admin_cmd(pattern="exec ?(.*)"))
+@borg.on(slitu.admin_cmd(pattern="exec ?(.*)"))
 async def _(event):
     if event.fwd_from or event.via_bot_id:
         return

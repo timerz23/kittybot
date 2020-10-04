@@ -3,7 +3,7 @@ Syntax: .cpin [LOUD]"""
 from telethon.tl import functions, types
 
 
-@borg.on(utils.admin_cmd(pattern="cpin ?(.*)"))
+@borg.on(slitu.admin_cmd(pattern="cpin ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return

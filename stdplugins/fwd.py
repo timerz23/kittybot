@@ -3,7 +3,7 @@ to know how many users have seen your message
 Syntax: .fwd as reply to any message"""
 
 
-@borg.on(utils.admin_cmd(pattern="fwd"))
+@borg.on(slitu.admin_cmd(pattern="fwd"))
 async def _(event):
     if event.fwd_from:
         return

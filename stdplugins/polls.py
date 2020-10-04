@@ -2,7 +2,7 @@
 Syntax: .get_poll"""
 
 
-@borg.on(utils.admin_cmd(pattern="get_poll"))
+@borg.on(slitu.admin_cmd(pattern="get_poll"))
 async def _(event):
     reply_message = await event.get_reply_message()
     if reply_message.media is None or reply_message.media.poll is None:

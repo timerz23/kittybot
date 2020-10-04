@@ -2,7 +2,7 @@
 import asyncio
 
 
-@borg.on(utils.admin_cmd(pattern="purge ?(.*)"))
+@borg.on(slitu.admin_cmd(pattern="purge ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return

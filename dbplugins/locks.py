@@ -6,7 +6,7 @@ DB Options: bots, commands, email, forward, url"""
 from telethon import events, functions, types
 
 
-@borg.on(utils.admin_cmd(pattern="lock( (?P<target>\S+)|$)"))
+@borg.on(slitu.admin_cmd(pattern="lock( (?P<target>\S+)|$)"))
 async def _(event):
      # Space weirdness in regex required because argument is optional and other
      # commands start with ".lock"
@@ -86,7 +86,7 @@ async def _(event):
             )
 
 
-@borg.on(utils.admin_cmd(pattern="unlock ?(.*)"))
+@borg.on(slitu.admin_cmd(pattern="unlock ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -109,7 +109,7 @@ async def _(event):
         )
 
 
-@borg.on(utils.admin_cmd(pattern="curenabledlocks"))
+@borg.on(slitu.admin_cmd(pattern="curenabledlocks"))
 async def _(event):
     if event.fwd_from:
         return
@@ -159,7 +159,7 @@ async def check_incoming_messages(event):
         logger.info("DB_URI is not configured.")
         logger.info(str(e))
         return False
-    if await utils.is_admin(event.client, event.chat_id, event.from_id):
+    if await slitu.is_admin(event.client, event.chat_id, event.from_id):
         return
     peer_id = event.chat_id
     if is_locked(peer_id, "commands"):
@@ -225,7 +225,7 @@ async def _(event):
         logger.info("DB_URI is not configured.")
         logger.info(str(e))
         return False
-    if await utils.is_admin(event.client, event.chat_id, event.action_message.from_id):
+    if await slitu.is_admin(event.client, event.chat_id, event.action_message.from_id):
         return
     if is_locked(event.chat_id, "bots"):
         # bots are limited Telegram accounts,

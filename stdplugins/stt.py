@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 
 
-@borg.on(utils.admin_cmd(pattern="stt (.*)"))
+@borg.on(slitu.admin_cmd(pattern="stt (.*)"))
 async def _(event):
     if event.fwd_from:
         return

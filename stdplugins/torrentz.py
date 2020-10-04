@@ -4,7 +4,7 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 
 
-@borg.on(utils.admin_cmd(  # pylint:disable=E0602
+@borg.on(slitu.admin_cmd(  # pylint:disable=E0602
     pattern="torrentz (torrentz2\.eu|idop\.se) (.*)"
 ))
 async def _(event):
@@ -59,7 +59,7 @@ def search_idop_se(search_query):
             "title": title,
             "hash": hash,
             "age": age,
-            "size": utils.humanbytes(size),
+            "size": slitu.humanbytes(size),
             "seeds": seeds,
             "peers": "NA"
         })

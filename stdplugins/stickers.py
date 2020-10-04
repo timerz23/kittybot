@@ -22,7 +22,7 @@ from telethon.tl.types import (
 )
 
 
-@borg.on(utils.admin_cmd(pattern="kangsticker ?(.*)"))
+@borg.on(slitu.admin_cmd(pattern="kangsticker ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -124,7 +124,7 @@ async def _(event):
     )
 
 
-@borg.on(utils.admin_cmd(pattern="packinfo"))
+@borg.on(slitu.admin_cmd(pattern="packinfo"))
 async def _(event):
     if event.fwd_from:
         return
@@ -160,7 +160,7 @@ async def _(event):
                      f"**Emojis In Pack:** {' '.join(pack_emojis)}")
 
 
-@borg.on(utils.admin_cmd(pattern="getsticker ?(.*)"))
+@borg.on(slitu.admin_cmd(pattern="getsticker ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return

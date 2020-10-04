@@ -14,7 +14,7 @@ from datetime import datetime
 from telethon.utils import guess_extension
 
 
-@borg.on(utils.admin_cmd(pattern="google search (.*)"))
+@borg.on(slitu.admin_cmd(pattern="google search (.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -41,7 +41,7 @@ async def _(event):
     await event.edit("Google: {}\n{}".format(input_str, output_str), link_preview=False)
 
 
-@borg.on(utils.admin_cmd(pattern="google image (.*)"))
+@borg.on(slitu.admin_cmd(pattern="google image (.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -103,7 +103,7 @@ async def _(event):
     await event.delete()
 
 
-@borg.on(utils.admin_cmd(pattern="google reverse search"))
+@borg.on(slitu.admin_cmd(pattern="google reverse search"))
 async def _(event):
     if event.fwd_from:
         return

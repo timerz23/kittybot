@@ -5,7 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-@borg.on(utils.admin_cmd(pattern="filext (.*)"))
+@borg.on(slitu.admin_cmd(pattern="filext (.*)"))
 async def _(event):
     if event.fwd_from:
         return

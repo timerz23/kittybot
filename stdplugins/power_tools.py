@@ -10,7 +10,7 @@ import os
 import sys
 
 
-@borg.on(utils.admin_cmd(pattern="restart"))
+@borg.on(slitu.admin_cmd(pattern="restart"))
 async def _(event):
     if event.fwd_from:
         return
@@ -27,7 +27,7 @@ async def _(event):
     quit()
 
 
-@borg.on(utils.admin_cmd(pattern="shutdown"))
+@borg.on(slitu.admin_cmd(pattern="shutdown"))
 async def _(event):
     if event.fwd_from:
         return

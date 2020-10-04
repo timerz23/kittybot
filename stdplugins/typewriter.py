@@ -4,7 +4,7 @@
 import asyncio
 
 
-@borg.on(utils.admin_cmd(pattern="typewriter (.*)"))
+@borg.on(slitu.admin_cmd(pattern="typewriter (.*)"))
 async def _(event):
     if event.fwd_from:
         return

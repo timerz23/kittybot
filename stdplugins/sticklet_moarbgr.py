@@ -10,7 +10,7 @@ from telethon.tl.types import InputMessagesFilterDocument
 
 
 # RegEx by https://t.me/c/1220993104/500653 ( @SnapDragon7410 )
-@borg.on(utils.admin_cmd(pattern=r"srgb ?(?:(.*?) \| )?(.*)"))
+@borg.on(slitu.admin_cmd(pattern=r"srgb ?(?:(.*?) \| )?(.*)"))
 async def sticklet(event):
     R = random.randint(0, 256)
     G = random.randint(0, 256)

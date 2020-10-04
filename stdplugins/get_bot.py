@@ -3,7 +3,7 @@ Syntax: .get_bot"""
 from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantsBots
 
 
-@borg.on(utils.admin_cmd(pattern="get_bot ?(.*)"))
+@borg.on(slitu.admin_cmd(pattern="get_bot ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return

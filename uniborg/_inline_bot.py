@@ -8,7 +8,7 @@ import re
 from telethon import events, custom
 
 
-@borg.on(utils.admin_cmd(  # pylint:disable=E0602
+@borg.on(slitu.admin_cmd(  # pylint:disable=E0602
     pattern="ib (.[^ ]*) (.*)"
 ))
 async def _(event):
@@ -35,7 +35,7 @@ async def _(event):
             `{}`".format(bot_username, search_query, str(e)))
 
 
-@borg.on(utils.admin_cmd(  # pylint:disable=E0602
+@borg.on(slitu.admin_cmd(  # pylint:disable=E0602
     pattern="icb (.[^ ]*) (.[^ ]*) (.*)"
 ))
 async def _(event):

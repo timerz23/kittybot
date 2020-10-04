@@ -3,7 +3,7 @@ Syntax: .meaning <word>"""
 import requests
 
 
-@borg.on(utils.admin_cmd(pattern="meaning (.*)"))
+@borg.on(slitu.admin_cmd(pattern="meaning (.*)"))
 async def _(event):
     if event.fwd_from:
         return

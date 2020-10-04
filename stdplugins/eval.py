@@ -12,7 +12,7 @@ import sys
 import io
 
 
-@borg.on(utils.admin_cmd(pattern="eval"))
+@borg.on(slitu.admin_cmd(pattern="eval"))
 async def _(event):
     if event.fwd_from or event.via_bot_id:
         return
@@ -67,7 +67,7 @@ async def _(event):
 
 
 async def aexec(code, event):
-    p = lambda _x: print(utils.yaml_format(_x))
+    p = lambda _x: print(slitu.yaml_format(_x))
     reply = await event.get_reply_message()
     exec(
         f'async def __aexec(message, reply, client, p): ' +

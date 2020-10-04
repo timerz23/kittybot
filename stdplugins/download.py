@@ -14,7 +14,7 @@ from telethon import events
 from telethon.tl.types import DocumentAttributeVideo
 
 
-@borg.on(utils.admin_cmd(pattern="download ?(.*)", allow_sudo=True))
+@borg.on(slitu.admin_cmd(pattern="download ?(.*)", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -31,7 +31,7 @@ async def _(event):
                 reply_message,
                 Config.TMP_DOWNLOAD_DIRECTORY,
                 progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                    utils.progress(d, t, mone, c_time, "trying to download")
+                    slitu.progress(d, t, mone, c_time, "trying to download")
                 )
             )
         except Exception as e:  # pylint:disable=C0103,W0703
@@ -73,7 +73,7 @@ async def _(event):
                                   f"File Name: {file_name}\n" \
                                   f"Speed: {speed}"\
                                   f"{progress_str}\n"\
-                                  f"{utils.humanbytes(downloaded)} of {utils.humanbytes(total_length)}\n"\
+                                  f"{slitu.humanbytes(downloaded)} of {slitu.humanbytes(total_length)}\n"\
                                   f"ETA: {estimated_total_time}"
                 if round(diff % 10.00) == 0 and current_message != display_message:
                     await mone.edit(current_message)

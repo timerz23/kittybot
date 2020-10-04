@@ -6,7 +6,7 @@ Syntax: .ud Query"""
 import urbandict
 
 
-@borg.on(utils.admin_cmd(pattern="ud (.*)"))
+@borg.on(slitu.admin_cmd(pattern="ud (.*)"))
 async def _(event):
     if event.fwd_from:
         return

@@ -3,7 +3,7 @@ Syntax: .decide"""
 import requests
 
 
-@borg.on(utils.admin_cmd(pattern="decide"))
+@borg.on(slitu.admin_cmd(pattern="decide"))
 async def _(event):
     if event.fwd_from:
         return

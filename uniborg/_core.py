@@ -11,7 +11,7 @@ from datetime import datetime
 DELETE_TIMEOUT = 5
 
 
-@borg.on(utils.admin_cmd(pattern="load (?P<shortname>\w+)$"))  # pylint:disable=E0602
+@borg.on(slitu.admin_cmd(pattern="load (?P<shortname>\w+)$"))  # pylint:disable=E0602
 async def load_reload(event):
     await event.delete()
     shortname = event.pattern_match["shortname"]
@@ -29,7 +29,7 @@ async def load_reload(event):
         await event.respond(f"Failed to (re)load plugin {shortname}: {e}")
 
 
-@borg.on(utils.admin_cmd(pattern="(?:unload|remove) (?P<shortname>\w+)$"))  # pylint:disable=E0602
+@borg.on(slitu.admin_cmd(pattern="(?:unload|remove) (?P<shortname>\w+)$"))  # pylint:disable=E0602
 async def remove(event):
     await event.delete()
     shortname = event.pattern_match["shortname"]
@@ -44,7 +44,7 @@ async def remove(event):
     await msg.delete()
 
 
-@borg.on(utils.admin_cmd(pattern="send plugin (?P<shortname>\w+)$"))  # pylint:disable=E0602
+@borg.on(slitu.admin_cmd(pattern="send plugin (?P<shortname>\w+)$"))  # pylint:disable=E0602
 async def send_plug_in(event):
     if event.fwd_from:
         return
@@ -66,7 +66,7 @@ async def send_plug_in(event):
     await event.delete()
 
 
-@borg.on(utils.admin_cmd(pattern="install plugin"))  # pylint:disable=E0602
+@borg.on(slitu.admin_cmd(pattern="install plugin"))  # pylint:disable=E0602
 async def install_plug_in(event):
     if event.fwd_from:
         return

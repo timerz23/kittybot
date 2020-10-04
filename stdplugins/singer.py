@@ -5,7 +5,7 @@ by @quiec
 import asyncio
 from PyLyrics import *
 
-@borg.on(utils.admin_cmd(pattern="singer (.*)"))
+@borg.on(slitu.admin_cmd(pattern="singer (.*)"))
 async def _(event):
     if event.fwd_from:
         return

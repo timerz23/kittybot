@@ -4,7 +4,7 @@ import requests
 import json
 
 
-@borg.on(utils.admin_cmd(pattern="ifsc rp (.*)"))
+@borg.on(slitu.admin_cmd(pattern="ifsc rp (.*)"))
 async def _(event):
     if event.fwd_from:
         return

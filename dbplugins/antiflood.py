@@ -14,12 +14,12 @@ ANTI_FLOOD_WARN_MODE = ChatBannedRights(
 )
 
 
-@borg.on(utils.admin_cmd(incoming=True))
+@borg.on(slitu.admin_cmd(incoming=True))
 async def _(event):
     # logger.info(CHAT_FLOOD)
     if not CHAT_FLOOD:
         return
-    admin_c = await utils.is_admin(event.client, event.chat_id, event.message.from_id)
+    admin_c = await slitu.is_admin(event.client, event.chat_id, event.message.from_id)
     if admin_c:
         return
     if str(event.chat_id) not in CHAT_FLOOD:
@@ -65,7 +65,7 @@ async def _(event):
         )
 
 
-@borg.on(utils.admin_cmd(pattern="setflood (.*)"))
+@borg.on(slitu.admin_cmd(pattern="setflood (.*)"))
 async def _(event):
     if event.fwd_from:
         return

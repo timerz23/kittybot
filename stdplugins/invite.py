@@ -4,7 +4,7 @@ Syntax: .invite <User(s)>"""
 from telethon import functions
 
 
-@borg.on(utils.admin_cmd(pattern="invite ?(.*)"))
+@borg.on(slitu.admin_cmd(pattern="invite ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return

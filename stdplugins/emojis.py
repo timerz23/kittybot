@@ -7,7 +7,7 @@ Available Commands:
 import asyncio
 
 
-@borg.on(utils.admin_cmd(pattern="emoji (.*)"))
+@borg.on(slitu.admin_cmd(pattern="emoji (.*)"))
 async def _(event):
     if event.fwd_from:
         return

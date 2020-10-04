@@ -7,7 +7,7 @@ import time
 from datetime import tzinfo, datetime
 
 
-@borg.on(utils.admin_cmd(pattern="weather (.*)"))
+@borg.on(slitu.admin_cmd(pattern="weather (.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -51,7 +51,7 @@ async def _(event):
         await event.edit(response_api["message"])
 
 
-@borg.on(utils.admin_cmd(pattern="wttr (.*)"))
+@borg.on(slitu.admin_cmd(pattern="wttr (.*)"))
 async def _(event):
     if event.fwd_from:
         return

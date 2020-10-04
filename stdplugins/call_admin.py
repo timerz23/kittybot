@@ -3,7 +3,7 @@ import asyncio
 from telethon.tl.types import ChannelParticipantsAdmins
 
 
-@borg.on(utils.admin_cmd(pattern="admin"))
+@borg.on(slitu.admin_cmd(pattern="admin"))
 async def _(event):
     if event.fwd_from:
         return

@@ -3,7 +3,7 @@ Syntax: .github USERNAME"""
 import requests
 
 
-@borg.on(utils.admin_cmd(pattern="github (.*)"))
+@borg.on(slitu.admin_cmd(pattern="github (.*)"))
 async def _(event):
     if event.fwd_from:
         return

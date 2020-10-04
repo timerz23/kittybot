@@ -3,7 +3,7 @@ Syntax: .coinflip [optional_choice]"""
 import random, re
 
 
-@borg.on(utils.admin_cmd(pattern="coinflip ?(.*)"))
+@borg.on(slitu.admin_cmd(pattern="coinflip ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return

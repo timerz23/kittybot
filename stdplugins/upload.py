@@ -31,7 +31,7 @@ def get_lst_of_files(input_directory, output_lst):
     return output_lst
 
 
-@borg.on(utils.admin_cmd(pattern="uploadir (.*)"))
+@borg.on(slitu.admin_cmd(pattern="uploadir (.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -115,7 +115,7 @@ async def _(event):
                         thumb=thumb,
                         attributes=document_attributes,
                         # progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                        #     utils.progress(d, t, event, c_time, "trying to upload")
+                        #     slitu.progress(d, t, event, c_time, "trying to upload")
                         # )
                     )
                 except Exception as e:
@@ -139,7 +139,7 @@ async def _(event):
         await event.edit("404: Directory Not Found")
 
 
-@borg.on(utils.admin_cmd(pattern="upload (.*)", allow_sudo=True))
+@borg.on(slitu.admin_cmd(pattern="upload (.*)", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -163,7 +163,7 @@ async def _(event):
             reply_to=event.message.id,
             thumb=thumb,
             progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                utils.progress(d, t, mone, c_time, "trying to upload")
+                slitu.progress(d, t, mone, c_time, "trying to upload")
             )
         )
         end = datetime.now()
@@ -174,7 +174,7 @@ async def _(event):
         await mone.edit("404: File Not Found")
 
 
-@borg.on(utils.admin_cmd(pattern="uploadasstream (.*)", allow_sudo=True))
+@borg.on(slitu.admin_cmd(pattern="uploadasstream (.*)", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -207,7 +207,7 @@ async def _(event):
         if os.path.exists(thumb_image_path):
             thumb = thumb_image_path
         else:
-            thumb = await utils.take_screen_shot(
+            thumb = await slitu.take_screen_shot(
                 file_name,
                 Config.TMP_DOWNLOAD_DIRECTORY,
                 duration // 2
@@ -235,7 +235,7 @@ async def _(event):
                     )
                 ],
                 progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                    utils.progress(d, t, mone, c_time, "trying to upload")
+                    slitu.progress(d, t, mone, c_time, "trying to upload")
                 )
             )
         except Exception as e:

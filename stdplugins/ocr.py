@@ -63,7 +63,7 @@ def progress(current, total):
         current, total, (current / total) * 100))
 
 
-@borg.on(utils.admin_cmd(pattern="ocrlanguages"))
+@borg.on(slitu.admin_cmd(pattern="ocrlanguages"))
 async def get_ocr_languages(event):
     if event.fwd_from:
         return
@@ -97,7 +97,7 @@ async def get_ocr_languages(event):
     await event.edit(str(a))
 
 
-@borg.on(utils.admin_cmd(pattern="ocr (.*)"))
+@borg.on(slitu.admin_cmd(pattern="ocr (.*)"))
 async def parse_ocr_space_api(event):
     if event.fwd_from:
         return
@@ -108,7 +108,7 @@ async def parse_ocr_space_api(event):
     downloaded_file_name = await borg.download_media(
         await event.get_reply_message(),
         Config.TMP_DOWNLOAD_DIRECTORY,
-        progress_callback=utils.progress
+        progress_callback=slitu.progress
     )
     if downloaded_file_name.endswith((".webp")):
         downloaded_file_name = conv_image(downloaded_file_name)

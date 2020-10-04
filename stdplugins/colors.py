@@ -4,7 +4,7 @@ import os
 from PIL import Image, ImageColor
 
 
-@borg.on(utils.admin_cmd(pattern="color (.*)"))
+@borg.on(slitu.admin_cmd(pattern="color (.*)"))
 async def _(event):
     if event.fwd_from:
         return

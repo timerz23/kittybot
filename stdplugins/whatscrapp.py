@@ -1,7 +1,7 @@
 """Syntax: .whatscrapp as reply to a message copied from @WhatsCRApp"""
 
 
-@borg.on(utils.admin_cmd(pattern="whatscrapp"))
+@borg.on(slitu.admin_cmd(pattern="whatscrapp"))
 async def _(event):
     if event.fwd_from:
         return

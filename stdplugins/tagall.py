@@ -3,7 +3,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-@borg.on(utils.admin_cmd(pattern="tagall"))
+@borg.on(slitu.admin_cmd(pattern="tagall"))
 async def _(event):
     if event.fwd_from:
         return

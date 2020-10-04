@@ -9,7 +9,7 @@ from telethon.tl.types import Channel, User, Chat
 
 """Type `.count` and see Magic."""
 
-@borg.on(utils.admin_cmd(pattern='count'))
+@borg.on(slitu.admin_cmd(pattern='count'))
 async def stats(event: NewMessage.Event) -> None:  # pylint: disable = R0912, R0914, R0915
     """Command to get stats about the account"""
     waiting_message = await event.edit('`Collecting stats, Wait Nibba`')

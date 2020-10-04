@@ -7,7 +7,7 @@ import requests
 import json
 
 
-@borg.on(utils.admin_cmd(pattern="calendar (.*)"))
+@borg.on(slitu.admin_cmd(pattern="calendar (.*)"))
 async def _(event):
     if event.fwd_from:
         return

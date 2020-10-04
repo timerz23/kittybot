@@ -11,7 +11,7 @@ from barcode.writer import ImageWriter
 from datetime import datetime
 
 
-@borg.on(utils.admin_cmd(pattern="barcode ?(.*)"))
+@borg.on(slitu.admin_cmd(pattern="barcode ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return

@@ -7,7 +7,7 @@ from datetime import datetime
 from selenium import webdriver
 
 
-@borg.on(utils.admin_cmd(pattern="screencapture (.*)"))
+@borg.on(slitu.admin_cmd(pattern="screencapture (.*)"))
 async def _(event):
     if event.fwd_from:
         return

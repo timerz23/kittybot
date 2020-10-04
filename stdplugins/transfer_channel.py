@@ -7,7 +7,7 @@ import telethon.password as pwd_mod
 from telethon.tl import functions, types
 
 
-@borg.on(utils.admin_cmd(pattern="otransfer (.*)"))  # pylint:disable=E0602
+@borg.on(slitu.admin_cmd(pattern="otransfer (.*)"))  # pylint:disable=E0602
 async def _(event):
     if event.fwd_from:
         return

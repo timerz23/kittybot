@@ -17,7 +17,7 @@ from bs4 import BeautifulSoup
 from telethon.utils import get_inner_text
 
 
-@borg.on(utils.admin_cmd(pattern="rl"))
+@borg.on(slitu.admin_cmd(pattern="rl"))
 async def _(event):
     if event.fwd_from:
         return

@@ -8,7 +8,7 @@ from telethon.tl.types import MessageEntityMentionName
 from telethon.utils import get_input_location
 
 
-@borg.on(utils.admin_cmd(pattern="whois ?(.*)"))
+@borg.on(slitu.admin_cmd(pattern="whois ?(.*)"))
 async def _(event):
     if event.fwd_from:
         return

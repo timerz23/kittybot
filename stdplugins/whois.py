@@ -2,6 +2,7 @@
 Syntax: .whois @username"""
 
 import html
+from telethon.errors import MediaEmptyError
 from telethon.tl.functions.photos import GetUserPhotosRequest
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
@@ -77,15 +78,22 @@ async def _(event):
     message_id_to_reply = event.message.reply_to_msg_id
     if not message_id_to_reply:
         message_id_to_reply = event.message.id
-    await borg.send_message(
-        event.chat_id,
-        caption,
-        reply_to=message_id_to_reply,
-        parse_mode="HTML",
-        file=replied_user.profile_photo,
-        force_document=False,
-        silent=True
-    )
+    try:
+        await event.reply(
+            caption,
+            reply_to=message_id_to_reply,
+            parse_mode="HTML",
+            file=replied_user.profile_photo,
+            force_document=False,
+            silent=True
+        )
+    except MediaEmptyError:
+        await event.reply(
+            caption,
+            reply_to=message_id_to_reply,
+            parse_mode="HTML",
+            silent=True
+        )
     await event.delete()
 
 

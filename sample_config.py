@@ -139,6 +139,22 @@ class Config:
         "LT_QOAN_NOE_FF_MPEG_URL",
         None
     )
+    # for @DMCATelegramBot plugin(s)
+    DEL_SLEEP_TIMEOUT = int(os.environ.get(
+        "DEL_SLEEP_TIMEOUT",
+        "31"
+    ))
+    DMCA_TG_REPLY_MESSAGE = os.environ.get(
+        "DMCA_TG_REPLY_MESSAGE",
+        (
+            "Respected Sir / Ma'am, \n\n"
+            "I have removed the contents and "
+            "requesting you to remove the "
+            "restriction_reason from the "
+            "affected channels.\n\n"
+            "<a href='https://t.me/c/1224259012/31'>©️RED!T💲</a>"
+        )
+    )
 
 
 class Production(Config):

@@ -19,18 +19,18 @@ async def _(event):
     # logger.info(CHAT_FLOOD)
     if not CHAT_FLOOD:
         return
-    admin_c = await slitu.is_admin(event.client, event.chat_id, event.message.from_id)
+    admin_c = await slitu.is_admin(event.client, event.chat_id, event.message.sender_id)
     if admin_c:
         return
     if str(event.chat_id) not in CHAT_FLOOD:
         return
-    should_ban = sql.update_flood(event.chat_id, event.message.from_id)
+    should_ban = sql.update_flood(event.chat_id, event.message.sender_id)
     if not should_ban:
         return
     try:
         await event.client(EditBannedRequest(
             event.chat_id,
-            event.message.from_id,
+            event.message.sender_id,
             ANTI_FLOOD_WARN_MODE
         ))
     except Exception as e:  # pylint:disable=C0103,W0703
@@ -40,7 +40,7 @@ async def _(event):
                 "**Automatic AntiFlooder**\n"
                 "@admin [User](tg://user?id={}) is flooding this chat.\n\n"
                 "`{}`".format(
-                    event.message.from_id,
+                    event.message.sender_id,
                     str(e)
                 )
             ),
@@ -58,7 +58,7 @@ async def _(event):
                 "**Automatic AntiFlooder**\n"
                 "[User](tg://user?id={}) has been automatically restricted\n"
                 "because he reached the defined flood limit.".format(
-                    event.message.from_id
+                    event.message.sender_id
                 )
             ),
             reply_to=event.message.id

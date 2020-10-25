@@ -16,9 +16,9 @@ from telethon.tl import types, functions
 
 @borg.on(slitu.admin_cmd(incoming=True))
 async def on_new_message(event):
-    if await slitu.is_admin(event.client, event.chat_id, event.from_id):
+    if await slitu.is_admin(event.client, event.chat_id, event.sender_id):
         return
-    if borg.me.id == event.from_id:
+    if borg.me.id == event.sender_id:
         return
     name = event.raw_text
     snips = sql.get_chat_blacklist(event.chat_id)

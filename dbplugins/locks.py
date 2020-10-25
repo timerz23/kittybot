@@ -159,7 +159,7 @@ async def check_incoming_messages(event):
         logger.info("DB_URI is not configured.")
         logger.info(str(e))
         return False
-    if await slitu.is_admin(event.client, event.chat_id, event.from_id):
+    if await slitu.is_admin(event.client, event.chat_id, event.sender_id):
         return
     peer_id = event.chat_id
     if is_locked(peer_id, "commands"):
@@ -225,13 +225,13 @@ async def _(event):
         logger.info("DB_URI is not configured.")
         logger.info(str(e))
         return False
-    if await slitu.is_admin(event.client, event.chat_id, event.action_message.from_id):
+    if await slitu.is_admin(event.client, event.chat_id, event.action_message.sender_id):
         return
     if is_locked(event.chat_id, "bots"):
         # bots are limited Telegram accounts,
         # and cannot join by themselves
         if event.user_added:
-            users_added_by = event.action_message.from_id
+            users_added_by = event.action_message.sender_id
             is_ban_able = False
             rights = types.ChatBannedRights(
                 until_date=None,

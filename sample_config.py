@@ -106,7 +106,7 @@ class Config:
     #
     GROUP_REG_SED_EX_BOT_S = os.environ.get(
         "GROUP_REG_SED_EX_BOT_S",
-        r"(regex|moku|BananaButler_|rgx|l4mR)bot"
+        r"(rege?(e)x|moku|BananaButler_|rgx|l4mR|Telethonian|pcre)bot"
     )
     # Google Chrome Selenium Stuff
     # taken from https://github.com/jaskaranSM/UniBorg/blob/9072e3580cc6c98d46f30e41edbe73ffc9d850d3/sample_config.py#L104-L106

@@ -61,8 +61,9 @@ async def _(event):
         f"Restricted: {replied_user.user.restricted}\n"
         f"Verified: {replied_user.user.verified}\n"
         f"Bot: {replied_user.user.bot}\n"
-        f"Groups in Common: {common_chats}\n"
     )
+    if not replied_user.user.is_self:
+        caption += f"Groups in Common: {common_chats}\n"
     message_id_to_reply = event.message.reply_to_msg_id
     if not message_id_to_reply:
         message_id_to_reply = event.message.id

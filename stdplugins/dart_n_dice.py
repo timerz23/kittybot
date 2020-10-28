@@ -11,10 +11,14 @@ from telethon.tl.types import InputMediaDice
 DART_E_MOJI = "🎯"
 DICE_E_MOJI = "🎲"
 BALL_E_MOJI = "🏀"
+FOOT_E_MOJI = "⚽"
+SLOT_M_MOJI = "🎰"
 # EMOJI CONSTANTS
 
 
-@borg.on(slitu.admin_cmd(pattern=f"({DART_E_MOJI}|{DICE_E_MOJI}|{BALL_E_MOJI}) ?(.*)"))
+@borg.on(slitu.admin_cmd(
+    pattern=f"({DART_E_MOJI}|{DICE_E_MOJI}|{BALL_E_MOJI}|{FOOT_E_MOJI}|{SLOT_M_MOJI}) ?(.*)")
+)
 async def _(event):
     if event.fwd_from:
         return

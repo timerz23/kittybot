@@ -25,6 +25,5 @@ async def _(event):
         ystes[emoji.value] = f"https://t.me/addstickers/{sticker_set.set.short_name}"
     oprtts = ""
     for yek in ystes:
-        oprtts += f"{yek} {ystes.get(yek)} <code>{ascii(yek)}</code>\n"
+        oprtts += f"{yek} {ystes.get(yek)}\n"
     await status_message.edit(oprtts, parse_mode="html")
-

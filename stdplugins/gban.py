@@ -16,7 +16,7 @@ async def _(event):
     reason = event.pattern_match.group(1)
     if event.reply_to_msg_id:
         r = await event.get_reply_message()
-        r_sender_id = r.forward.from_id or r.from_id if r.forward else r.from_id
+        r_sender_id = r.forward.sender_id or r.sender_id if r.forward else r.sender_id
         await event.client.send_message(
             Config.G_BAN_LOGGER_GROUP,
             "!gban [user](tg://user?id={}) {}".format(r_sender_id, reason)
@@ -34,7 +34,7 @@ async def _(event):
     reason = event.pattern_match.group(1)
     if event.reply_to_msg_id:
         r = await event.get_reply_message()
-        r_sender_id = r.from_id
+        r_sender_id = r.sender_id
         await event.client.send_message(
             Config.G_BAN_LOGGER_GROUP,
             "!ungban [user](tg://user?id={}) {}".format(r_sender_id, reason)

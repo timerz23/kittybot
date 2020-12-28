@@ -170,6 +170,9 @@ class Uniborg(TelegramClient):
             tvar = os.environ.get(var)
             if tvar and tvar in i_s:
                 i_s = i_s.replace(tvar, f"[{var}]")
+            tvar = str(getattr(self.config, var, ""))
+            if tvar and tvar in i_s:
+                i_s = i_s.replace(tvar, f"[{var}]")
         if self.me and self.me.phone and self.me.phone in i_s:
             i_s = i_s.replace(self.me.phone, "/:canttouchthis:\\")
         return i_s

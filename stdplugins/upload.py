@@ -48,8 +48,10 @@ async def _(event):
             "Please wait!"
         )
         thumb = None
+        _custom_thumb_e = False
         if os.path.exists(thumb_image_path):
             thumb = thumb_image_path
+            _custom_thumb_e = True
         for single_file in lst_of_files:
             if os.path.exists(single_file):
                 # https://stackoverflow.com/a/678242/4723940
@@ -59,28 +61,19 @@ async def _(event):
                 document_attributes = []
                 width = 0
                 height = 0
-                if os.path.exists(thumb_image_path):
-                    metadata = extractMetadata(createParser(thumb_image_path))
-                    if metadata.has("width"):
-                        width = metadata.get("width")
-                    if metadata.has("height"):
-                        height = metadata.get("height")
                 if single_file.upper().endswith(Config.TL_VID_STREAM_TYPES):
                     metadata = extractMetadata(createParser(single_file))
                     duration = 0
                     if metadata.has("duration"):
                         duration = metadata.get('duration').seconds
-                    document_attributes = [
-                        DocumentAttributeVideo(
-                            duration=duration,
-                            w=width,
-                            h=height,
-                            round_message=False,
-                            supports_streaming=True
-                        )
-                    ]
                     supports_streaming = True
                     force_document = False
+                    if not _custom_thumb_e:
+                        thumb = await slitu.take_screen_shot(
+                            single_file,
+                            Config.TMP_DOWNLOAD_DIRECTORY,
+                            duration // 2
+                        )
                 if single_file.upper().endswith(Config.TL_MUS_STREAM_TYPES):
                     metadata = extractMetadata(createParser(single_file))
                     duration = 0
@@ -103,6 +96,22 @@ async def _(event):
                     ]
                     supports_streaming = True
                     force_document = False
+                if os.path.exists(thumb):
+                    metadata = extractMetadata(createParser(thumb))
+                    if metadata and metadata.has("width"):
+                        width = metadata.get("width")
+                    if metadata and metadata.has("height"):
+                        height = metadata.get("height")
+                if single_file.upper().endswith(Config.TL_VID_STREAM_TYPES):
+                    document_attributes = [
+                        DocumentAttributeVideo(
+                            duration=duration,
+                            w=width,
+                            h=height,
+                            round_message=False,
+                            supports_streaming=True
+                        )
+                    ]
                 try:
                     await borg.send_file(
                         event.chat_id,
@@ -127,6 +136,8 @@ async def _(event):
                     # some media were having some issues
                     continue
                 os.remove(single_file)
+                if thumb and not _custom_thumb_e:
+                    os.remove(thumb)
                 u += 1
                 # await event.edit("Uploaded {} / {} files.".format(u, len(lst_of_files)))
                 # @ControllerBot was having issues,

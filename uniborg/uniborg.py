@@ -48,7 +48,8 @@ class Uniborg(TelegramClient):
             # un-official
             "OPEN_WEATHER_MAP_APPID", "IBM_WATSON_CRED_URL", "IBM_WATSON_CRED_PASSWORD", "HASH_TO_TORRENT_API", "OCR_SPACE_API_KEY", "REM_BG_API_KEY",
             # meme-s
-            "DEEZER_ARL_TOKEN", "LT_QOAN_NOE_FF_MPEG_URL", "DMCA_TG_REPLY_MESSAGE",
+            "DEEZER_ARL_TOKEN",
+            # "LT_QOAN_NOE_FF_MPEG_URL", "DMCA_TG_REPLY_MESSAGE",
             # @Google
             "G_DRIVE_CLIENT_ID", "G_DRIVE_CLIENT_SECRET", "G_DRIVE_AUTH_TOKEN_DATA",
             "G_PHOTOS_CLIENT_ID", "G_PHOTOS_CLIENT_SECRET", "G_PHOTOS_AUTH_TOKEN_ID",

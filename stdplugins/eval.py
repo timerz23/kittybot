@@ -48,7 +48,7 @@ async def _(event):
 
     final_output = "**EVAL**: `{}` \n\n **OUTPUT**: \n`{}` \n".format(
         cmd,
-        borg.secure_text(evaluation)
+        evaluation
     )
 
     if len(final_output) > Config.MAX_MESSAGE_SIZE_LIMIT:

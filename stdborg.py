@@ -14,17 +14,10 @@ from telethon import events, TelegramClient
 
 logging.basicConfig(level=logging.INFO)
 
-# the secret configuration specific things
-ENV = bool(os.environ.get("ENV", False))
-if ENV:
-    from sample_config import Config
-else:
-    if os.path.exists("config.py"):
-        from config import Development as Config
-    else:
-        logging.warning("No config.py Found!")
-        logging.info("Please run the command, again, after creating config.py similar to README.md")
-        sys.exit(1)
+from dotenv import load_dotenv
+# apparently, no error appears even if the path does not exists
+load_dotenv("config.env")
+from sample_config import Config
 
 
 if Config.DB_URI is None:
@@ -38,7 +31,7 @@ if len(Config.SUDO_USERS) == 0:
     sys.exit(1)
 
 
-if Config.HU_STRING_SESSION is not None:
+if Config.HU_STRING_SESSION:
     # for Running on Heroku
     session_id = str(Config.HU_STRING_SESSION)
     container = AlchemySessionContainer(
@@ -54,45 +47,33 @@ if Config.HU_STRING_SESSION is not None:
         api_hash=Config.API_HASH
     )
     borg.run_until_disconnected()
-elif len(sys.argv) == 2:
-    # for running on GNU/Linux
-    session_name = str(sys.argv[1])
-    borg = Uniborg(
-        session_name,
-        n_plugin_path="stdplugins/",
-        db_plugin_path="dbplugins/",
-        connection_retries=None,
-        api_config=Config,
+
+elif Config.TG_BOT_TOKEN_BF_HER:
+    # user defined 'TG_BOT_TOKEN_BF_HER'
+    # but did not define, 'HU_STRING_SESSION'
+    logging.info(
+        "[] did not provide / generate "
+        "'HU_STRING_SESSION', trying to work-around"
+    )
+    temp_borg = TelegramClient(
+        "temp_bot_session",
         api_id=Config.APP_ID,
         api_hash=Config.API_HASH
+    ).start(bot_token=Config.TG_BOT_TOKEN_BF_HER)
+    @temp_borg.on(events.NewMessage())
+    async def on_new_message(event):
+        from helper_sign_in import bleck_megick
+        await bleck_megick(event, Config)
+    logging.info(
+        f"please send /start to your '@{Config.TG_BOT_USER_NAME_BF_HER}'"
     )
-    borg.run_until_disconnected()
+    temp_borg.run_until_disconnected()
+
 else:
-    if Config.TG_BOT_TOKEN_BF_HER:
-        # user defined 'TG_BOT_TOKEN_BF_HER'
-        # but did not define, 'HU_STRING_SESSION'
-        logging.info(
-            "[] did not provide / generate "
-            "'HU_STRING_SESSION', trying to work-around"
-        )
-        temp_borg = TelegramClient(
-            "temp_bot_session",
-            api_id=Config.APP_ID,
-            api_hash=Config.API_HASH
-        ).start(bot_token=Config.TG_BOT_TOKEN_BF_HER)
-        @temp_borg.on(events.NewMessage())
-        async def on_new_message(event):
-            from helper_sign_in import bleck_megick
-            await bleck_megick(event, Config)
-        logging.info(
-            f"please send /start to your '@{Config.TG_BOT_USER_NAME_BF_HER}'"
-        )
-        temp_borg.run_until_disconnected()
-    else:
-        # throw error
-        logging.error(
-            "USAGE EXAMPLE:\n"
-            "python3 -m stdborg <SESSION_NAME>"
-            "\n 👆👆 Please follow the above format to run your userbot."
-            "\n Bot quitting."
-        )
+    # throw error
+    logging.error(
+        "USAGE EXAMPLE:\n"
+        "python3 -m stdborg"
+        "\n 👆👆 Please follow the above format to run your userbot."
+        "\n Bot quitting."
+    )

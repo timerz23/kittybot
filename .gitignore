@@ -6,7 +6,7 @@ __pycache__
 *.DB
 *.DB-journal
 data/
-config.py
+config.env
 sessions/
 
 stdplugins/tb_button.py

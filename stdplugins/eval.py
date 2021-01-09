@@ -46,6 +46,9 @@ async def _(event):
     elif stdout:
         evaluation = stdout
 
+    if event.chat_id not in borg._NOT_SAFE_PLACES:
+        evaluation = borg.secure_text(evaluation)
+
     final_output = "**EVAL**: `{}` \n\n **OUTPUT**: \n`{}` \n".format(
         cmd,
         evaluation

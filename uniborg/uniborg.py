@@ -49,11 +49,25 @@ class Uniborg(TelegramClient):
             "OPEN_WEATHER_MAP_APPID", "IBM_WATSON_CRED_URL", "IBM_WATSON_CRED_PASSWORD", "HASH_TO_TORRENT_API", "OCR_SPACE_API_KEY", "REM_BG_API_KEY",
             # meme-s
             "DEEZER_ARL_TOKEN",
-            # "LT_QOAN_NOE_FF_MPEG_URL", "DMCA_TG_REPLY_MESSAGE",
+            "LT_QOAN_NOE_FF_MPEG_URL", "DMCA_TG_REPLY_MESSAGE",
             # @Google
             "G_DRIVE_CLIENT_ID", "G_DRIVE_CLIENT_SECRET", "G_DRIVE_AUTH_TOKEN_DATA",
             "G_PHOTOS_CLIENT_ID", "G_PHOTOS_CLIENT_SECRET", "G_PHOTOS_AUTH_TOKEN_ID",
         ]
+        self._NOT_SAFE_PLACES = []
+        if self.config.PRIVATE_GROUP_BOT_API_ID:
+            self._NOT_SAFE_PLACES.append(
+                self.config.PRIVATE_GROUP_BOT_API_ID
+            )
+        if self.config.PRIVATE_CHANNEL_BOT_API_ID:
+            self._NOT_SAFE_PLACES.append(
+                self.config.PRIVATE_CHANNEL_BOT_API_ID
+            )
+        if self.config.G_BAN_LOGGER_GROUP:
+            self._NOT_SAFE_PLACES.append(
+                self.config.G_BAN_LOGGER_GROUP
+            )
+        
 
         self.tgbot = None
         if api_config.TG_BOT_USER_NAME_BF_HER is not None:
@@ -109,6 +123,11 @@ class Uniborg(TelegramClient):
             f"Logged in as {self.uid} "
             f"Try {self.config.COMMAND_HAND_LER}helpme in any chat..!"
         )
+
+        if not self.me.bot:
+            self._NOT_SAFE_PLACES.append(
+                self.me.id
+            )
 
 
     def load_plugin(self, shortname):
@@ -169,9 +188,6 @@ class Uniborg(TelegramClient):
             return i_s
         for var in self._KEEP_SAFE:
             tvar = os.environ.get(var)
-            if tvar and tvar in i_s:
-                i_s = i_s.replace(tvar, f"[{var}]")
-            tvar = str(getattr(self.config, var, ""))
             if tvar and tvar in i_s:
                 i_s = i_s.replace(tvar, f"[{var}]")
         if self.me and self.me.phone and self.me.phone in i_s:

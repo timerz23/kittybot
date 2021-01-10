@@ -159,7 +159,12 @@ class Config:
     LOAD = []
     # folowing plugins won't work on Heroku,
     # because of their ephemeral file system
-    NO_LOAD = []
+    NO_LOAD = [
+        # "aria_two",
+        "screencapture",
+        "deleted_messages_watcher",
+        "f_notification_p"
+    ]
     # leave this blank, should be automatically filled for Heroku.com users
     # define the "types" that should be uplaoded as streamable
     TL_VID_STREAM_TYPES = ("MP4", "WEBM")

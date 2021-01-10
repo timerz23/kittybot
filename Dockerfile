@@ -1,5 +1,5 @@
 #  creates a layer from the base Docker image.
-FROM python:3.8.5-slim-buster
+FROM python:3.9-slim-buster
 
 WORKDIR /app
 

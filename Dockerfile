@@ -52,7 +52,9 @@ RUN apt -qq install -y --no-install-recommends \
     # this package is required to fetch "contents" via "TLS"
     apt-transport-https \
     # install coreutils
-    coreutils jq pv \
+    build-essential coreutils jq pv \
+    # install gcc [ PEP 517 ]
+    gcc \
     # install encoding tools
     ffmpeg mediainfo \
     unzip zip \

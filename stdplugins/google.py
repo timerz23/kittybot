@@ -88,7 +88,8 @@ async def _(event):
     await event.reply(
         cap_lst,
         file=url_lst,
-        parse_mode="html"
+        parse_mode="html",
+        force_document=True
     )
     for each_file in url_lst:
         os.remove(each_file)
@@ -137,7 +138,10 @@ async def _(event):
         else:
             previous_message_text = previous_message.message
             SEARCH_URL = "{}/searchbyimage?image_url={}"
-            request_url = SEARCH_URL.format(BASE_URL, previous_message_text)
+            request_url = SEARCH_URL.format(
+                BASE_URL,
+                previous_message_text
+            )
             google_rs_response = await requests.get(request_url, allow_redirects=False)
             the_location = google_rs_response.headers.get("Location")
         await event.edit("Found Google Result. Pouring some soup on it!")

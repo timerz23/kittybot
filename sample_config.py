@@ -172,4 +172,6 @@ class Config:
     TL_FF_NOAQ_TYPES = ("WEBP")
     # to prevent IP-bans by popular scarpping sources
     PROXY_WORKER_S = os.environ.get("PROXY_WORKER_S")
-
+    # to prevent abuse
+    GOOGLE_SRCH_KEY = os.environ.get("GOOGLE_SRCH_KEY")
+    GOOGLE_SRCH_VALUE = os.environ.get("GOOGLE_SRCH_VALUE")

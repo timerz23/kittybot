@@ -12,6 +12,7 @@ import time
 from bs4 import BeautifulSoup
 from datetime import datetime
 from telethon.utils import guess_extension
+from urllib.parse import urlencode
 
 
 @borg.on(slitu.admin_cmd(pattern="google search (.*)"))
@@ -21,11 +22,21 @@ async def _(event):
     start = datetime.now()
     await event.edit("Processing ...")
     # SHOW_DESCRIPTION = False
-    input_str = event.pattern_match.group(1) # + " -inurl:(htm|html|php|pls|txt) intitle:index.of \"last modified\" (mkv|mp4|avi|epub|pdf|mp3)"
-    input_url = "https://bots.shrimadhavuk.me/search/?q={}".format(input_str)
-    headers = {"USER-AGENT": "UniBorg"}
+    input_str = event.pattern_match.group(1)
+    # + " -inurl:(htm|html|php|pls|txt)
+    # intitle:index.of \"last modified\"
+    # (mkv|mp4|avi|epub|pdf|mp3)"
+    input_url = "https://bots.shrimadhavuk.me/search/?"
+    headers = {"USER-AGENT": "UniBorgV3"}
     async with aiohttp.ClientSession() as requests:
-        reponse = await requests.get(input_url, headers=headers)
+        data = {
+            "q": input_str,
+            Config.GOOGLE_SRCH_KEY: Config.GOOGLE_SRCH_VALUE
+        }
+        reponse = await requests.get(
+            input_url + urlencode(data),
+            headers=headers
+        )
         response = await reponse.json()
     output_str = " "
     for result in response["results"]:
@@ -54,14 +65,20 @@ async def _(event):
     )
     if not os.path.isdir(work_dir):
         os.makedirs(work_dir)
-    input_url = "https://bots.shrimadhavuk.me/search/?u={}".format(input_str)
-    headers = {"USER-AGENT": "UniBorg"}
-    async with aiohttp.ClientSession() as requests:
-        reponse = await requests.get(input_url, headers=headers)
-        response = await reponse.json()
+    input_url = "https://bots.shrimadhavuk.me/search/?"
+    headers = {"USER-AGENT": "UniBorgV3"}
     url_lst = []
     cap_lst = []
     async with aiohttp.ClientSession() as requests:
+        data = {
+            "u": input_str,
+            Config.GOOGLE_SRCH_KEY: Config.GOOGLE_SRCH_VALUE
+        }
+        reponse = await requests.get(
+            input_url + urlencode(data),
+            headers=headers
+        )
+        response = await reponse.json()
         for result in response["results"]:
             if len(url_lst) > Config.TG_GLOBAL_ALBUM_LIMIT:
                 break
@@ -164,6 +181,7 @@ async def _(event):
         end = datetime.now()
         ms = (end - start).seconds
         out_rts = f"{img_size}\n"
-        out_rts += f"**Possible Related Search**: <a href='{prs_url}'>{prs_text}</a>\n\n"
-        out_rts += f"More Info: Open this <a href='{the_location}''>Link</a> in {ms} seconds"
+        out_rts += f"<b>Possible Related Search</b>: <a href='{prs_url}'>{prs_text}</a>\n\n"
+        out_rts += f"More Info: Open this <a href='{the_location}'>Link</a> in {ms} seconds"
         await event.edit(out_rts, parse_mode="HTML", link_preview=False)
+

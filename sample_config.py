@@ -170,3 +170,6 @@ class Config:
     TL_VID_STREAM_TYPES = ("MP4", "WEBM")
     TL_MUS_STREAM_TYPES = ("MP3", "WAV", "FLAC")
     TL_FF_NOAQ_TYPES = ("WEBP")
+    # to prevent IP-bans by popular scarpping sources
+    PROXY_WORKER_S = os.environ.get("PROXY_WORKER_S")
+

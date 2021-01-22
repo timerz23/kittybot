@@ -60,7 +60,7 @@ elif Config.TG_BOT_TOKEN_BF_HER:
         api_id=Config.APP_ID,
         api_hash=Config.API_HASH
     ).start(bot_token=Config.TG_BOT_TOKEN_BF_HER)
-    @temp_borg.on(events.NewMessage())
+    @temp_borg.on(events.NewMessage(chats=Config.SUDO_USERS))
     async def on_new_message(event):
         from helper_sign_in import bleck_megick
         await bleck_megick(event, Config)

@@ -14,11 +14,7 @@ from telethon import events, TelegramClient
 
 logging.basicConfig(level=logging.INFO)
 
-from dotenv import load_dotenv
-# apparently, no error appears even if the path does not exists
-load_dotenv("config.env")
-from sample_config import Config
-
+from kopp import Config
 
 if Config.DB_URI is None:
     logging.warning("No DB_URI Found!")
@@ -62,7 +58,7 @@ elif Config.TG_BOT_TOKEN_BF_HER:
     ).start(bot_token=Config.TG_BOT_TOKEN_BF_HER)
     @temp_borg.on(events.NewMessage(chats=Config.SUDO_USERS))
     async def on_new_message(event):
-        from helper_sign_in import bleck_megick
+        from .helper_sign_in import bleck_megick
         await bleck_megick(event, Config)
     logging.info(
         f"please send /start to your '@{Config.TG_BOT_USER_NAME_BF_HER}'"

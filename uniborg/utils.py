@@ -19,10 +19,8 @@ from telethon.errors import MessageTooLongError
 import datetime
 
 # the secret configuration specific things
-from dotenv import load_dotenv
-# apparently, no error appears even if the path does not exists
-load_dotenv("config.env")
-from sample_config import Config
+from kopp import Config
+
 
 def admin_cmd(**args):
     args["func"] = lambda e: e.via_bot_id is None

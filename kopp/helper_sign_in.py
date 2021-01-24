@@ -97,8 +97,7 @@ async def bleck_megick(event, config_jbo):
                 "and will never be used for any other purposes "
                 "than for which it is asked.__"
                 "\n\n"
-                "The code is available for review at "
-                "https://github.com/SpEcHiDe/UniBorg/raw/master/helper_sign_in.py"
+                "The code is available for review at @UniBorg"
             )
             msg6 = await conv.get_response()
             received_tfa_code = msg6.message.strip()

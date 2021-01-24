@@ -5,10 +5,7 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 
 
 # the secret configuration specific things
-from dotenv import load_dotenv
-# apparently, no error appears even if the path does not exists
-load_dotenv("config.env")
-from sample_config import Config
+from kopp import Config
 
 
 def start() -> scoped_session:

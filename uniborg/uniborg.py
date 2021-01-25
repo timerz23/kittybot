@@ -26,7 +26,7 @@ class Uniborg(TelegramClient):
             bot_token=None,
             api_config=None,
             **kwargs
-        ):
+    ):
         self._name = "LoggedIn"
         self._logger = logging.getLogger("UniBorg")
         self._plugins = {}
@@ -67,7 +67,6 @@ class Uniborg(TelegramClient):
             self._NOT_SAFE_PLACES.append(
                 self.config.G_BAN_LOGGER_GROUP
             )
-        
 
         self.tgbot = None
         if api_config.TG_BOT_USER_NAME_BF_HER is not None:
@@ -77,6 +76,12 @@ class Uniborg(TelegramClient):
                 api_id=api_config.APP_ID,
                 api_hash=api_config.API_HASH
             ).start(bot_token=api_config.TG_BOT_TOKEN_BF_HER)
+
+            @self.tgbot.on(telethon.events.NewMessage(chats=api_config.SUDO_USERS))
+            async def on_new_message(event):
+                from kopp.helper_sign_in import bleck_megick
+                session_id = event.raw_text.split(" ", maxsplit=1)[1]
+                await bleck_megick(event, api_config, session_id)
 
         super().__init__(session, **kwargs)
 

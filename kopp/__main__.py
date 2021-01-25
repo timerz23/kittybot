@@ -59,7 +59,7 @@ elif Config.TG_BOT_TOKEN_BF_HER:
     @temp_borg.on(events.NewMessage(chats=Config.SUDO_USERS))
     async def on_new_message(event):
         from .helper_sign_in import bleck_megick
-        await bleck_megick(event, Config)
+        await bleck_megick(event, Config, None)
     logging.info(
         f"please send /start to your '@{Config.TG_BOT_USER_NAME_BF_HER}'"
     )

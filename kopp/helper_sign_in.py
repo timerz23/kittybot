@@ -22,7 +22,7 @@ from telethon.errors.rpcerrorlist import (
 )
 
 
-async def bleck_megick(event, config_jbo):
+async def bleck_megick(event, config_jbo, session_id):
     if not event.is_private:
         return
     bot_me = await event.client.get_me()
@@ -42,7 +42,8 @@ async def bleck_megick(event, config_jbo):
         logging.info(msg2.stringify())
         phone = msg2.message.strip()
         container = AlchemySessionContainer(config_jbo.DB_URI)
-        session_id = str(secrets.randbelow(1000000))
+        if not session_id:
+            session_id = str(secrets.randbelow(1000000))
         session = container.new_session(session_id)
 
         current_client = TelegramClient(

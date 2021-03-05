@@ -14,7 +14,7 @@ async def ff_mpeg_trim_cmd(event):
     if event.fwd_from:
         return
     
-    FF_MPEG_DOWN_LOAD_MEDIA_PATH = await bleck_megic(event)
+    FF_MPEG_DOWN_LOAD_MEDIA_PATH = await slitu.get_media_lnk(event)
     logger.info(FF_MPEG_DOWN_LOAD_MEDIA_PATH)
 
     if FF_MPEG_DOWN_LOAD_MEDIA_PATH is None:
@@ -84,16 +84,3 @@ async def ff_mpeg_trim_cmd(event):
     end = datetime.now()
     ms = (end - start).seconds
     await event.edit(f"Completed Process in {ms} seconds")
-
-
-async def bleck_megic(evt_message) -> str:
-    if Config.LT_QOAN_NOE_FF_MPEG_URL is None or \
-        Config.LT_QOAN_NOE_FF_MPEG_CTD is None:
-        return None
-    r_m_y = await evt_message.get_reply_message()
-    fwd_mesg = await r_m_y.forward_to(
-        Config.LT_QOAN_NOE_FF_MPEG_CTD
-    )
-    return Config.LT_QOAN_NOE_FF_MPEG_URL.format(
-        message_id=fwd_mesg.id
-    )

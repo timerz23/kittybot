@@ -44,8 +44,8 @@ selenium
 
 speedtest-cli
 
-psycopg2-binary
-sqlalchemy
+psycopg2-binary==2.8.6
+sqlalchemy==1.3.23
 
 telegraph
 

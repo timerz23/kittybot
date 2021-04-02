@@ -133,13 +133,20 @@ async def _(event):
     # the above CX ids are found publicly available on the Internet
     # https://t.me/ThankTelegram/759091
     input_str = event.pattern_match.group(2)
-    input_url = "https://bots.shrimadhavuk.me/search/?cx={}&q={}".format(
-        all_srch_cx_dict.get(type_of_search),
-        input_str
-    )
-    headers = {"USER-AGENT": "UniBorg"}
+    input_url = "https://bots.shrimadhavuk.me/search/"
+
+    data = {
+        "app_id": Config.USE_TG_BOT_APP_ID,
+        "cx": all_srch_cx_dict.get(type_of_search),
+        "q": input_str
+    }
+    headers = {"USER-AGENT": "UseTGBot"}
     async with aiohttp.ClientSession() as requests:
-        reponse = await requests.get(input_url, headers=headers)
+        reponse = await requests.get(
+            input_url,
+            params=data,
+            headers=headers
+        )
         response = await reponse.json()
     output_str = " "
     for result in response["results"]:

@@ -26,15 +26,16 @@ async def _(event):
     # + " -inurl:(htm|html|php|pls|txt)
     # intitle:index.of \"last modified\"
     # (mkv|mp4|avi|epub|pdf|mp3)"
-    input_url = "https://bots.shrimadhavuk.me/search/?"
-    headers = {"USER-AGENT": "UniBorgV3"}
+    input_url = "https://bots.shrimadhavuk.me/search/"
+    headers = {"USER-AGENT": "UseTGBot"}
     async with aiohttp.ClientSession() as requests:
         data = {
             "q": input_str,
-            Config.GOOGLE_SRCH_KEY: Config.GOOGLE_SRCH_VALUE
+            "app_id": Config.USE_TG_BOT_APP_ID
         }
         reponse = await requests.get(
-            input_url + urlencode(data),
+            input_url,
+            params=data,
             headers=headers
         )
         response = await reponse.json()
@@ -65,17 +66,19 @@ async def _(event):
     )
     if not os.path.isdir(work_dir):
         os.makedirs(work_dir)
-    input_url = "https://bots.shrimadhavuk.me/search/?"
-    headers = {"USER-AGENT": "UniBorgV3"}
+    input_url = "https://bots.shrimadhavuk.me/search/"
+    headers = {"USER-AGENT": "UseTGBot"}
     url_lst = []
     cap_lst = []
     async with aiohttp.ClientSession() as requests:
         data = {
-            "u": input_str,
-            Config.GOOGLE_SRCH_KEY: Config.GOOGLE_SRCH_VALUE
+            "q": input_str,
+            "app_id": Config.USE_TG_BOT_APP_ID,
+            "p": "GoogleImages"
         }
         reponse = await requests.get(
-            input_url + urlencode(data),
+            input_url,
+            params=data,
             headers=headers
         )
         response = await reponse.json()

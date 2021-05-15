@@ -80,7 +80,11 @@ class Uniborg(TelegramClient):
             @self.tgbot.on(telethon.events.NewMessage(chats=api_config.SUDO_USERS))
             async def on_new_message(event):
                 from kopp.helper_sign_in import bleck_megick
-                session_id = event.raw_text.split(" ", maxsplit=1)[1]
+                session_id = None
+                try:
+                    session_id = event.raw_text.split(" ", maxsplit=1)[1]
+                except IndexError:
+                    pass
                 await bleck_megick(event, api_config, session_id)
 
         super().__init__(session, **kwargs)

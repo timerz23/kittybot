@@ -128,7 +128,8 @@ async def _(event):
         "TR": "552cc5db2fc56e8d5",
         "TMV": "7e8cb098b23d01f34",
         "TB": "d9baba52ac11f8492",
-        "TGY": "e0918a34523787dc4"
+        "TGY": "e0918a34523787dc4",
+        "TENDS": "009429336737432836220:ulylvgpikgc"
     }
     # the above CX ids are found publicly available on the Internet
     # https://t.me/ThankTelegram/759091
@@ -160,3 +161,4 @@ async def _(event):
     await s_m_s.edit("searched {} for {} in {} seconds. \n{}".format(type_of_search, input_str, ms, output_str), link_preview=False)
     await asyncio.sleep(5)
     await s_m_s.edit("**{}**: {}\n{}".format(type_of_search, input_str, output_str), link_preview=False)
+

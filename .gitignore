@@ -8,5 +8,8 @@ __pycache__
 data/
 config.env
 sessions/
+*.pyc
 
 stdplugins/tb_button.py
+stdplugins/cheat_tg.py
+stdplugins/deleted_messages_watcher.py

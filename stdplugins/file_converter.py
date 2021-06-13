@@ -4,6 +4,9 @@ import asyncio
 import os
 import time
 from datetime import datetime
+from telethon.tl.types import InputMediaUploadedDocument
+from telethon.tl.types import DocumentAttributeAudio
+from telethon.utils import get_attributes
 
 
 @borg.on(slitu.admin_cmd(pattern="nfc (.*)"))  # pylint:disable=E0602
@@ -78,20 +81,39 @@ async def _(event):
         if os.path.exists(new_required_file_name):
             end_two = datetime.now()
             force_document = False
-            await borg.send_file(
-                entity=event.chat_id,
-                file=new_required_file_name,
-                caption=new_required_file_caption,
-                allow_cache=False,
-                silent=True,
-                force_document=force_document,
-                voice_note=voice_note,
-                supports_streaming=supports_streaming,
+            file_handle = await event.client.upload_file(
+                new_required_file_name,
                 progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
                     slitu.progress(d, t, event, c_time, "trying to upload")
                 )
             )
-            ms_two = (end_two - end).seconds
+            attributes, mime_type = get_attributes(
+                new_required_file_name,
+                mime_type=None,
+                attributes=[],
+                force_document=force_document,
+                voice_note=voice_note,
+                video_note=False,
+                supports_streaming=supports_streaming,
+                thumb=None
+            )
             os.remove(new_required_file_name)
+            attributes = [DocumentAttributeAudio(
+                duration=attributes[-1].duration,
+                voice=voice_note,
+                title=Config.NFC_TITLE,
+                performer=Config.NFC_PERFORMER,
+                waveform=attributes[-1].waveform
+            )]
+            media = InputMediaUploadedDocument(
+                file=file_handle,
+                mime_type=mime_type,
+                attributes=attributes,
+                thumb=None,
+                force_file=force_document
+            )
+            await event.reply(
+                file=media
+            )
+            ms_two = (end_two - end).seconds
             await event.edit(f"converted in {ms_two} seconds")
-

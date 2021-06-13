@@ -174,4 +174,7 @@ class Config:
     PROXY_WORKER_S = os.environ.get("PROXY_WORKER_S")
     # get this value from @UseTGBot /getapi command
     USE_TG_BOT_APP_ID = os.environ.get("USE_TG_BOT_APP_ID")
+    # for the file converter plugin(s)
+    NFC_TITLE = os.environ.get("NFC_TITLE")
+    NFC_PERFORMER = os.environ.get("NFC_PERFORMER")
 

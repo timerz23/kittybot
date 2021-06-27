@@ -9,7 +9,7 @@
 
 import aiohttp
 import json
-import os
+from telethon.errors import MediaEmptyError
 
 
 @borg.on(slitu.admin_cmd(pattern="imdb (.*)"))
@@ -17,15 +17,19 @@ async def imdb(message):
     try:
         movie_name = message.pattern_match.group(1)
         await message.edit(f"__searching IMDB for__ : `{movie_name}`")
-        search_results = await _get(Config.IMDB_API_ONE_URL.format(uniborg=movie_name))
-        srch_results = json.loads(search_results)
-        first_movie = srch_results.get("d")[0]
-        mov_title = first_movie.get("l")
-        mov_imdb_id = first_movie.get("id")
+        image_link = None
+        if not movie_name.startswith("tt"):
+            search_results = await _get(Config.IMDB_API_ONE_URL.format(uniborg=movie_name))
+            srch_results = json.loads(search_results)
+            first_movie = srch_results.get("d")[0]
+            mov_imdb_id = first_movie.get("id")
+            image_link = first_movie.get("i").get("imageUrl")
+        else:
+            mov_imdb_id = movie_name
         mov_link = f"https://www.imdb.com/title/{mov_imdb_id}"
         page2 = await _get(Config.IMDB_API_TWO_URL.format(imdbttid=mov_imdb_id))
         second_page_response = json.loads(page2)
-        image_link = first_movie.get("i").get("imageUrl")
+        mov_title = second_page_response.get("title")
         mov_details = get_movie_details(second_page_response)
         director, writer, stars = get_credits_text(second_page_response)
         story_line = second_page_response.get("summary").get("plot", 'Not available')
@@ -51,12 +55,17 @@ async def imdb(message):
     if image_link:
         if len(des_) > 1023:
             des_ = des_[:1023] + "..."
-        await message.respond(
-            des_,
-            file=image_link,
-            parse_mode="html"
-        )
-        await message.delete()
+        try:
+            await message.respond(
+                des_,
+                file=image_link,
+                parse_mode="html"
+            )
+        except MediaEmptyError:
+            await message.edit(image_link)
+            await message.reply(des_, parse_mode="HTML")
+        else:
+            await message.delete()
     else:
         if len(des_) > 4095:
             des_ = des_[:4095] + "..."

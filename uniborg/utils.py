@@ -259,6 +259,7 @@ def yaml_format(obj, indent=0, max_str_len=256, max_byte_len=64):
     (based on TLObject.pretty_format)
     """
     result = []
+
     if isinstance(obj, TLObject):
         obj = obj.to_dict()
 
@@ -288,12 +289,37 @@ def yaml_format(obj, indent=0, max_str_len=256, max_byte_len=64):
             result.pop()
         if has_multiple_items:
             indent -= 2
+
+    elif isinstance(obj, list):
+        has_items = len(obj) > 1
+        has_multiple_items = len(obj) > 2
+        yako = 0
+        if has_multiple_items:
+            result.append('\n')
+            indent += 2
+        for one in obj:
+            formatted = yaml_format(one, indent)
+            if not formatted.strip():
+                continue
+            result.append(' ' * (indent if has_multiple_items else 1))
+            result.append(f'{yako}:')
+            if not formatted[0].isspace():
+                result.append(' ')
+            result.append(f'{formatted}')
+            result.append('\n')
+            yako += 1
+        if has_items:
+            result.pop()
+        if has_multiple_items:
+            indent -= 2
+
     elif isinstance(obj, str):
         # truncate long strings and display elipsis
         result = repr(obj[:max_str_len])
         if len(obj) > max_str_len:
             result += '…'
         return result
+
     elif isinstance(obj, bytes):
         # repr() bytes if it's printable, hex like "FF EE BB" otherwise
         if all(0x20 <= c < 0x7f for c in obj):
@@ -301,9 +327,11 @@ def yaml_format(obj, indent=0, max_str_len=256, max_byte_len=64):
         else:
             return ('<…>' if len(obj) > max_byte_len else
                     ' '.join(f'{b:02X}' for b in obj))
+
     elif isinstance(obj, datetime.datetime):
         # ISO-8601 without timezone offset (telethon dates are always UTC)
         return obj.strftime('%Y-%m-%d %H:%M:%S')
+
     elif hasattr(obj, '__iter__'):
         # display iterables one after another at the base indentation level
         result.append('\n')

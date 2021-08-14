@@ -30,7 +30,7 @@ async def _(event):
     __ = ""
 
     try:
-        __ = await aexec(cmd, s_m_)
+        __ = await aexec(cmd, event)
     except Exception:
         exc = traceback.format_exc()
 

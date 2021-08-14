@@ -50,9 +50,13 @@ class Uniborg(TelegramClient):
             # meme-s
             "DEEZER_ARL_TOKEN",
             "LT_QOAN_NOE_FF_MPEG_URL", "DMCA_TG_REPLY_MESSAGE",
+            "IMDB_API_ONE_URL", "IMDB_API_TWO_URL",
+            "USE_TG_BOT_APP_ID", "PROXY_WORKER_S",
             # @Google
             "G_DRIVE_CLIENT_ID", "G_DRIVE_CLIENT_SECRET", "G_DRIVE_AUTH_TOKEN_DATA",
             "G_PHOTOS_CLIENT_ID", "G_PHOTOS_CLIENT_SECRET", "G_PHOTOS_AUTH_TOKEN_ID",
+            # j.i.c
+            "SUDO_USERS",
         ]
         self._NOT_SAFE_PLACES = []
         if self.config.PRIVATE_GROUP_BOT_API_ID:

@@ -16,7 +16,7 @@ import io
 async def _(event):
     if event.fwd_from or event.via_bot_id:
         return
-    s_m_ = await event.edit("Processing ...")
+    s_m_ = await event.reply("...")
     cmd = event.raw_text.split(" ", maxsplit=1)[1]
     reply_to_id = event.message.id
     if event.reply_to_msg_id:
@@ -27,14 +27,15 @@ async def _(event):
     redirected_output = sys.stdout = io.StringIO()
     redirected_error = sys.stderr = io.StringIO()
     stdout, stderr, exc = None, None, None
+    __ = ""
 
     try:
-        await aexec(cmd, s_m_)
+        __ = await aexec(cmd, s_m_)
     except Exception:
         exc = traceback.format_exc()
 
     stdout = redirected_output.getvalue()
-    stderr = redirected_error.getvalue()
+    stderr = redirected_error.getvalue() or str(__)
     sys.stdout = old_stdout
     sys.stderr = old_stderr
 

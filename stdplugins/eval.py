@@ -34,8 +34,8 @@ async def _(event):
     except Exception:
         exc = traceback.format_exc()
 
-    stdout = redirected_output.getvalue()
-    stderr = redirected_error.getvalue() or str(__)
+    stdout = str(__ or redirected_output.getvalue() or "")
+    stderr = redirected_error.getvalue()
     sys.stdout = old_stdout
     sys.stderr = old_stderr
 

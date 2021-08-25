@@ -37,11 +37,13 @@ async def _(event):
         first_name = html.escape(first_name)
         # some weird people (like me) have more than 4096 characters in their names
         first_name = first_name.replace("\u2060", "")
+        first_name = first_name.replace("\u3164", "")
     last_name = replied_user.user.last_name
     # last_name is not Manadatory in @Telegram
     if last_name is not None:
         last_name = html.escape(last_name)
         last_name = last_name.replace("\u2060", "")
+        last_name = last_name.replace("\u3164", "")
     # inspired by https://telegram.dog/afsaI181
     user_bio = replied_user.about
     if user_bio is not None:

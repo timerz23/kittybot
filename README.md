@@ -1,4 +1,4 @@
-# uniborg
+# kitty
 
 Pluggable [``asyncio``](https://docs.python.org/3/library/asyncio.html)
 [Telegram](https://telegram.org) userbot based on
@@ -23,11 +23,11 @@ dockerd
 ```
 - Build Docker image:
 ```sh
-docker build . -t uniborg
+docker build . -t kitty
 ```
 - Run the image:
 ```sh
-docker run uniborg
+docker run 
 ```
 
 It is not recommended to use "sudo", while using Docker.
@@ -41,8 +41,8 @@ cause trouble down the road and errors when upgrading conflicting packages.
 #### The Legacy Way
 Simply clone the repository and run the main file:
 ```sh
-git clone https://github.com/udf/uniborg.git
-cd uniborg
+git clone https://github.com/udf/kitty.git
+cd kitty
 python3 -m venv venv
 . ./venv/bin/activate
 pip install -r requirements.txt
@@ -54,14 +54,14 @@ python3 -m stdborg
 ## internals
 
 The core features offered by the custom `TelegramClient` live under the
-[`uniborg/`](https://github.com/SpEcHiDe/uniborg/tree/master/uniborg)
+[`/`](https://github.com/sidpower/kitty/tree/master/kitty)
 directory, with some utilities, enhancements, the `_core` plugin, and the `_inline_bot` plugin.
 
 
 ## [@SpEcHlDe](https://telegram.dog/ThankTelegram)
 
 - Only five of the environment variables are mandatory.
-- Please read the [WiKi](https://github.com/SpEcHiDe/UniBorg/wiki) to understand the use of the variables.
+- Please read the [WiKi](https://github.com/sidpower/kitty/wiki) to understand the use of the variables.
 - This is because of `telethon.errors.ApiIdPublishedFloodError`
     - `APP_ID`: 
     - `API_HASH`:
@@ -75,11 +75,11 @@ directory, with some utilities, enhancements, the `_core` plugin, and the `_inli
 ## design
 
 The modular design of the project enhances your Telegram experience
-through [plugins](https://github.com/SpEcHiDe/uniborg/tree/master/stdplugins)
+through [plugins](https://github.com/SpEcHiDe//tree/master/stdplugins)
 which you can enable or disable on demand.
 
 Each plugin gets the `borg`, `logger`, `Config`, `tgbot` magical
-[variables](https://github.com/spechide/UniBorg/blob/488eff632e65103ba7017d4f52777d22ddd52ea2/uniborg/uniborg.py#L76-L80)
+[variables](https://github.com/sidpower/kitty/blob/488eff632e65103ba7017d4f52777d22ddd52ea2/kitty/kitty.py#L76-L80)
 to ease their use. Thus creating a plugin as easy as adding
 a new file under the plugin directory to do the job:
 
@@ -97,7 +97,7 @@ async def handler(event):
 
 ## learning
 
-Check out the already-mentioned [plugins](https://github.com/SpEcHiDe/UniBorg/tree/master/stdplugins) directory, or some third-party [plugins](https://telegram.dog/UniBorg) to learn how to write your own, and consider reading [Telethon's documentation](http://telethon.readthedocs.io/).
+Check out the already-mentioned [plugins](https://github.com/sidpower/kitty/tree/master/stdplugins) directory, or some third-party [plugins](https://telegram.dog/) to learn how to write your own, and consider reading [Telethon's documentation](http://telethon.readthedocs.io/).
 
 
 ## credits

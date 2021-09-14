@@ -1,12 +1,9 @@
-# This Source Code Form is subject to the terms of the Mozilla Public
-# License, v. 2.0. If a copy of the MPL was not distributed with this
-# file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import logging
 import os
 import sys
 from pathlib import Path
-from uniborg import Uniborg
+from kitty import Kitty
 from uniborg.storage import Storage
 from alchemysession import AlchemySessionContainer
 from telethon import events, TelegramClient

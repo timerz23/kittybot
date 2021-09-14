@@ -1,5 +1,3 @@
-# UniBorg Telegram UseRBot 
-# Copyright (C) 2020 @UniBorg
 
 """Uploads Files to Telegram
 Available Commands:

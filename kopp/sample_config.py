@@ -75,16 +75,16 @@ class Config:
     #
     STICKERS_PNG_SHORT_NAME = os.environ.get(
         "STICKERS_PNG_SHORT_NAME",
-        "Uni_Borg_7351948"
+        "Ki_tty_7351948"
     )
     STICKERS_TGS_SHORT_NAME = os.environ.get(
         "STICKERS_TGS_SHORT_NAME",
-        "Uni_Borg_7351948_as"
+        "Ki_tty_7351948_as"
     )
     # This is required for the @telegraph functionality.
     TELEGRAPH_SHORT_NAME = os.environ.get(
         "TELEGRAPH_SHORT_NAME",
-        "UniBorg"
+        "Kitty"
     )
     # JustWatch Country
     WATCH_COUNTRY = os.environ.get("WATCH_COUNTRY","IN")
@@ -115,7 +115,7 @@ class Config:
     if G_PHOTOS_AUTH_TOKEN_ID:
         G_PHOTOS_AUTH_TOKEN_ID = int(G_PHOTOS_AUTH_TOKEN_ID)
     # Google Chrome Selenium Stuff
-    # taken from https://github.com/jaskaranSM/UniBorg/blob/9072e3580cc6c98d46f30e41edbe73ffc9d850d3/sample_config.py#L104-L106
+    # taken from https://github.com/sidpower/Kitty/blob/9072e3580cc6c98d46f30e41edbe73ffc9d850d3/sample_config.py#L104-L106
     GOOGLE_CHROME_DRIVER = os.environ.get("GOOGLE_CHROME_DRIVER", None)
     GOOGLE_CHROME_BIN = os.environ.get("GOOGLE_CHROME_BIN", None)
     # for @DMCATelegramBot plugin(s)

@@ -59,7 +59,7 @@ if Config.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
         builder = event.builder
         result = None
         query = event.text
-        if event.sender_id == borg.uid and query.startswith("@UniBorg "):
+        if event.sender_id == borg.uid and query.startswith("@kitty "):
             try:
                 _, ko, pno = query.split(" ")
                 actual_text = borg._iiqsixfourstore[ko][pno]
@@ -68,7 +68,7 @@ if Config.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
                 actual_text = query
             buttons = paginate_help(0, borg._plugins, "helpme")
             result = builder.article(
-                "© @UniBorg",
+                "© @Kitty",
                 text="{}\nCurrently Loaded Plugins: {}".format(
                     actual_text, len(borg._plugins)
                 ),
@@ -78,22 +78,22 @@ if Config.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             )
         elif query.startswith("tb_btn"):
             result = builder.article(
-                "Button Parser © @UniBorg",
-                text=f"powered by @UniBorg",
+                "Button Parser © @Kitty",
+                text=f"powered by @Kitty",
                 buttons=[],
                 link_preview=True,
                 parse_mode="html"
             )
         else:
             result = builder.article(
-                "© @UniBorg",
+                "© @Kitty",
                 text=(
-                    "Try @UniBorg\n"
+                    "Try @Kitty\n"
                     "You can log-in as Bot or User and do many cool things with your Telegram account.\n\n"
-                    "All instructions to run @UniBorg in your PC has been explained in https://github.com/SpEcHiDe/UniBorg"
+                    "All instructions to run @Kitty in your PC has been explained in https://github.com/sidpower/kitty"
                 ),
                 buttons=[
-                    [custom.Button.url("Join the Channel", "https://telegram.dog/UniBorg"), custom.Button.url(
+                    [custom.Button.url("Join the Channel", "https://telegram.dog/Kitty"), custom.Button.url(
                         "Join the Group", "tg://some_unsupported_feature")],
                     [custom.Button.url(
                         "Source Code", "tg://some_unsupported_feature")]
@@ -115,7 +115,7 @@ if Config.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             # https://t.me/TelethonChat/115200
             await event.edit(buttons=buttons)
         else:
-            reply_pop_up_alert = "Please get your own @UniBorg, and don't edit my messages!"
+            reply_pop_up_alert = "Please get your own @, and don't edit my messages!"
             await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
     @tgbot.on(events.callbackquery.CallbackQuery(  # pylint:disable=E0602
@@ -133,7 +133,7 @@ if Config.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             # https://t.me/TelethonChat/115200
             await event.edit(buttons=buttons)
         else:
-            reply_pop_up_alert = "Please get your own @UniBorg, and don't edit my messages!"
+            reply_pop_up_alert = "Please get your own @Kitty, and don't edit my messages!"
             await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
     @tgbot.on(events.callbackquery.CallbackQuery(  # pylint:disable=E0602
@@ -150,7 +150,7 @@ if Config.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
         reply_pop_up_alert = help_string if help_string is not None else \
             "No DOCSTRING has been setup for {} plugin".format(plugin_name)
         reply_pop_up_alert += "\n\n Use .unload {} to remove this plugin\n\
-            © @UniBorg".format(plugin_name)
+            © @Kitty".format(plugin_name)
         await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
 

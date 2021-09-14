@@ -24,7 +24,6 @@ RUN apt -qq install -y --no-install-recommends \
 RUN apt -qq update
 
 # http://bugs.python.org/issue19846
-# https://github.com/SpEcHiDe/PublicLeech/pull/97
 ENV LANG C.UTF-8
 
 # we don't have an interactive xTerm

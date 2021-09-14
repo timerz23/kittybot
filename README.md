@@ -58,7 +58,7 @@ The core features offered by the custom `TelegramClient` live under the
 directory, with some utilities, enhancements, the `_core` plugin, and the `_inline_bot` plugin.
 
 
-## [@SpEcHlDe](https://telegram.dog/ThankTelegram)
+## [@kitty](https://telegram.dog/kitty)
 
 - Only five of the environment variables are mandatory.
 - Please read the [WiKi](https://github.com/sidpower/kitty/wiki) to understand the use of the variables.
@@ -69,13 +69,13 @@ directory, with some utilities, enhancements, the `_core` plugin, and the `_inli
     - `TG_BOT_USER_NAME_BF_HER`: 
     - `DATABASE_URL`: 
 - The userbot should work without setting the non-mandatory environment variables.
-- Please report any issues to the support group: [@SpEcHlDe](https://t.me/joinchat/AHAujEjG4FBO-TH-NrVVbg)
+- Please report any issues to the support group: [@kitty](https://t.me/joinchat/AHAujEjG4FBO-TH-NrVVbg)
 
 
 ## design
 
 The modular design of the project enhances your Telegram experience
-through [plugins](https://github.com/SpEcHiDe//tree/master/stdplugins)
+through [plugins](https://github.com/sidpower/kitty/tree/master/stdplugins)
 which you can enable or disable on demand.
 
 Each plugin gets the `borg`, `logger`, `Config`, `tgbot` magical

@@ -243,7 +243,7 @@ async def cult_small_video(video_file, output_directory, start_time, end_time):
         return None
 
 # these two functions are stolen from
-# https://github.com/udf/uniborg/blob/kate/stdplugins/info.py
+# https://github.com/sidpower/kitty/blob/kate/stdplugins/info.py
 
 def parse_pre(text):
     text = text.strip()

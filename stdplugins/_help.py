@@ -1,4 +1,4 @@
-"""**Know Your UniBorg**
+"""**Know Your Kitty**
 ◇ list of all loaded plugins
 ◆ `.helpme`\n
 ◇ to know Data Center
@@ -32,7 +32,7 @@ async def _(event):
     used = slitu.humanbytes(used)
     free = slitu.humanbytes(free)
 
-    help_string = "@UniBorg\n"
+    help_string = "@\n"
     help_string += f"✅ <b>UpTime</b> <code>{current_run_time}</code>\n"
     help_string += f"✅ <b>Python</b> <code>{sys.version}</code>\n"
     help_string += f"✅ <b>Telethon</b> <code>{__version__}</code>\n"
@@ -40,7 +40,7 @@ async def _(event):
     help_string += f"<b>Total Disk Space</b>: <code>{total}</code>\n"
     help_string += f"<b>Used Disk Space</b>: <code>{used}</code>\n"
     help_string += f"<b>Free Disk Space</b>: <code>{free}</code>\n\n"
-    help_string += f"UserBot Forked from https://github.com/udf/uniborg"
+    help_string += f"UserBot Forked"
     borg._iiqsixfourstore[str(event.chat_id)] = {}
     borg._iiqsixfourstore[
         str(event.chat_id)
@@ -51,7 +51,7 @@ async def _(event):
     if tgbotusername is not None:
         results = await borg.inline_query(  # pylint:disable=E0602
             tgbotusername,
-            f"@UniBorg {event.chat_id} {event.id}"
+            f"@Kitty {event.chat_id} {event.id}"
         )
         await results[0].click(
             event.chat_id,
@@ -82,7 +82,7 @@ async def _(event):
     result = await event.client(functions.help.GetConfigRequest())  # pylint:disable=E0602
     result = result.stringify()
     logger.info(result)  # pylint:disable=E0602
-    await event.edit("""Telethon UserBot powered by @UniBorg""")
+    await event.edit("""Telethon UserBot""")
 
 
 @borg.on(slitu.admin_cmd(pattern="syntax (.*)"))
@@ -92,7 +92,7 @@ async def _(event):
     plugin_name = event.pattern_match.group(1)
     if plugin_name in borg._plugins:
         help_string = borg._plugins[plugin_name].__doc__
-        unload_string = f"Use `.unload {plugin_name}` to remove this plugin.\n           © @UniBorg"
+        unload_string = f"Use `.unload {plugin_name}` to remove this plugin."
         if help_string:
             plugin_syntax = f"Syntax for plugin **{plugin_name}**:\n\n{help_string}\n{unload_string}"
         else:
@@ -104,26 +104,13 @@ async def _(event):
 
 """ h
 t
-t UniBorg Telegram UseRBot 
-p Copyright (C) 2020 @UniBorg
-s
-: This code is licensed under
-/
-/
-g the "you can't use this for anything - public or private,
-i unless you know the two prime factors to the number below" license
-t
-. 543935563961418342898620676239017231876605452284544942043082635399903451854594062955
-to
-g വിവരണം അടിച്ചുമാറ്റിക്കൊണ്ട് പോകുന്നവർ
-r ക്രെഡിറ്റ് വെച്ചാൽ സന്തോഷമേ ഉള്ളു..!
-and
-.
+t Kitty Telegram UseRBot 
+p Copyright (C) 2020 @Kitty.
 xyz
 /
-uniborg
+Kitty
 /
-uniborg"""
+"""
 def check_data_base_heal_th():
     # https://stackoverflow.com/a/41961968
     is_database_working = False

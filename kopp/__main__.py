@@ -4,7 +4,7 @@ import os
 import sys
 from pathlib import Path
 from kitty import Kitty
-from uniborg.storage import Storage
+from kitty.storage import Storage
 from alchemysession import AlchemySessionContainer
 from telethon import events, TelegramClient
 
@@ -31,7 +31,7 @@ if Config.HU_STRING_SESSION:
         engine=Config.DB_URI
     )
     session = container.new_session(session_id)
-    borg = Uniborg(
+    borg = Kitty(
         session,
         n_plugin_path="stdplugins/",
         db_plugin_path="dbplugins/",

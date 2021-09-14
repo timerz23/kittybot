@@ -16,7 +16,7 @@ from . import hacks
 from . import utils
 
 
-class Uniborg(TelegramClient):
+class Kitty(TelegramClient):
     def __init__(
             self,
             session,
@@ -28,7 +28,7 @@ class Uniborg(TelegramClient):
             **kwargs
     ):
         self._name = "LoggedIn"
-        self._logger = logging.getLogger("UniBorg")
+        self._logger = logging.getLogger("Kitty")
         self._plugins = {}
         self._iiqsixfourstore = {}
         self.n_plugin_path = n_plugin_path
@@ -37,7 +37,7 @@ class Uniborg(TelegramClient):
 
         kwargs = {
             "device_model": "GNU/Linux nonUI",
-            "app_version": "@UniBorg 2.0",
+            "app_version": "@Kitty 2.0",
             "lang_code": "ml",
             **kwargs
         }
@@ -149,7 +149,7 @@ class Uniborg(TelegramClient):
     def load_plugin_from_file(self, path):
         path = Path(path)
         shortname = path.stem
-        name = f"_UniborgPlugins.{self._name}.{shortname}"
+        name = f"_KittyPlugins.{self._name}.{shortname}"
 
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
